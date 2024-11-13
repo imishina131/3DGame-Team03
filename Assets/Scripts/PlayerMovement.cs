@@ -49,6 +49,8 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.drag = 0;
         }
+
+        Debug.Log(grounded);
     }
 
     void MyInput()
@@ -80,6 +82,7 @@ public class PlayerMovement : MonoBehaviour
         {
             readyToJump = false;
             Jump();
+            Debug.Log("jumping");
             Invoke(nameof(ResetJump), jumpCooldown);
         }
 
