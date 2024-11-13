@@ -975,6 +975,7 @@ GameObject:
   - component: {fileID: 154216036}
   - component: {fileID: 154216038}
   - component: {fileID: 154216039}
+  - component: {fileID: 154216040}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1041,7 +1042,6 @@ MonoBehaviour:
   animator: {fileID: 1472811807}
   moveSpeed: 7
   orientation: {fileID: 1200987539}
-  jumpForce: 6
   jumpCooldown: 1
   airMultiplier: 0.4
   groundDrag: 5
@@ -1049,6 +1049,18 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 1024
+--- !u!114 &154216040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 154216035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc049a55a13ca93408dc985fe52815c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &156781661
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3079,7 +3091,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 419996717}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.11137519, y: 0.000000017729194, z: -4.8867366e-10, w: 0.99377847}
+  m_LocalRotation: {x: 0.11137518, y: -0.000000017729201, z: 4.886737e-10, w: 0.99377847}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -6381,7 +6393,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 727174839}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 4d3bb30e11739094dac94ad157e0ac60, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -6389,11 +6401,11 @@ MeshCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 37965752017485490, guid: 6f76963dc4dd1b049938fef030d39d5c, type: 3}
 --- !u!1 &728172889 stripped
@@ -15645,6 +15657,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Trampoline
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 6f76963dc4dd1b049938fef030d39d5c, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 6f76963dc4dd1b049938fef030d39d5c, type: 3}
+      propertyPath: m_TagString
+      value: Trampoline
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -15785,7 +15805,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1472811805}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 4d3bb30e11739094dac94ad157e0ac60, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
 
     Rigidbody rb;
 
-    public float jumpForce;
+    float jumpForce = 6f;
     public float jumpCooldown;
     public float airMultiplier;
     bool readyToJump;
@@ -26,6 +26,8 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask whatIsGround;
     bool grounded;
     bool crouching;
+
+    float initialVelocity = 600f;
 
     private void Start()
     {
@@ -106,6 +108,25 @@ public class PlayerMovement : MonoBehaviour
     {
         MovePlayer();
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "Trampoline")
+        {
+            rb.isKinematic = false;
+            rb.AddForce(new Vector3(initialVelocity, initialVelocity, 0));
+        }
+    }
+
+    /*
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.gameObject.tag == "Trampoline")
+        {
+            rb.isKinematic = true;
+        }
+    }
+    */
 
     void MovePlayer()
     {
