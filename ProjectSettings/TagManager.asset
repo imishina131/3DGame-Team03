@@ -5,6 +5,17 @@ TagManager:
   serializedVersion: 2
   tags:
   - Trampoline
+  - KeyArea
+  - DoorArea
+  - Knife
+  - KnifeEndPos
+  - ButtonArea
+  - Target
+  - Message
+  - NoteArea
+  - Door02
+  - NextLevel
+  - Snake
   layers:
   - Default
   - TransparentFX
