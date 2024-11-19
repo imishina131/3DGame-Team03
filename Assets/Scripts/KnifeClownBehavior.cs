@@ -14,16 +14,22 @@ public class KnifeClownBehavior : MonoBehaviour
     bool shootingFirstDoor;
     bool shootingSecondDoor;
     public Transform knifeTarget;
+
+    AudioSource audioSource;
+    public AudioClip throwingKnives;
     
 
     public void ShootFirstKnife()
     {
+        audioSource = GetComponent<AudioSource>();
         shootingFirstDoor = true;
         Vector3 direction = (new Vector3(firstKnifePos.transform.position.x, firstKnifePos.transform.position.y, firstKnifePos.transform.position.z) - (knifePos.transform.position));
         firstKnife = Instantiate(knife, knifePos.position, Quaternion.identity);
         firstKnife.gameObject.transform.localScale = new Vector3(340f, 340f, 340f);
         firstKnife.transform.Rotate(-90f, 1.5f, -90f);
         firstKnife.GetComponent<Rigidbody>().AddForce(direction * speed, ForceMode.Impulse);
+        audioSource.clip = throwingKnives;
+        audioSource.Play();
         StartCoroutine("Shooting");
     }
 
@@ -39,6 +45,8 @@ public class KnifeClownBehavior : MonoBehaviour
             knifeClone.gameObject.transform.localScale = new Vector3(340f, 340f, 340f);
             knifeClone.transform.Rotate(-90f, 1.5f, -90f);
             knifeClone.GetComponent<Rigidbody>().AddForce(direction * speed, ForceMode.Impulse);
+            audioSource.clip = throwingKnives;
+            audioSource.Play();
         }
         
     }

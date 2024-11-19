@@ -22,4 +22,9 @@ public class MainMenuScript : MonoBehaviour
     {
         SceneManager.LoadScene("AudioMenu"); 
     }
+
+    public void GoToLevel01()
+    {
+        SceneManager.LoadScene("TransitionScene");
+    }
 }

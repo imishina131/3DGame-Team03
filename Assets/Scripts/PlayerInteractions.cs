@@ -18,15 +18,46 @@ public class PlayerInteractions : MonoBehaviour
     bool noteDisplayed;
     public GameObject noteDisplay;
     public Player player;
+    bool inRangeArea;
+
+    AudioSource audioSource;
+    public AudioClip creepyMessage;
+    public AudioClip doorLocked;
+    public AudioClip faceAnotherWay;
+    public AudioClip stageHigh;
+    public AudioClip twistedFunHouse;
+
+    public GameObject button;
+    AudioSource doorAudio;
+    AudioSource buttonAudio;
+    public AudioClip doorOpen;
+    public AudioClip buttonSound;
+
+    public GameObject gun;
+
+    Scene scene;
+
+    Vector3 gunPos;
+
+
     // Start is called before the first frame update
     void Start()
     {
+        scene = SceneManager.GetActiveScene();
         rb = GetComponent<Rigidbody>();
+
+        if(scene.name == "Level01")
+        {
+            doorAudio = door.GetComponent<AudioSource>();
+            buttonAudio = button.GetComponent<AudioSource>();
+        }
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
     {
+
         if(Input.GetKeyDown(KeyCode.F))
         {
             if(inKeyArea == true)
@@ -39,14 +70,19 @@ public class PlayerInteractions : MonoBehaviour
             if(inDoorArea == true && hasKey == true)
             {
                 door.SetActive(false);
+                doorAudio.clip = doorOpen;
+                doorAudio.Play();
                 hasKey = false;
                 knifeClown.ShootFirstKnife();
+                Invoke("PlayHint", 1.0f);
             }
 
             if(inButtonArea == true)
             {
                 knifeClown.ChangeTarget();
                 inButtonArea = false;
+                buttonAudio.clip = buttonSound;
+                buttonAudio.Play();
             }
 
             if(inNoteArea == true)
@@ -54,14 +90,29 @@ public class PlayerInteractions : MonoBehaviour
                 noteDisplayed = true;
                 noteDisplay.SetActive(true);
                 FBanner.SetActive(false);
-                //play sound
+                audioSource.clip = twistedFunHouse;
+                audioSource.Play();
+            }
+
+            if(inRangeArea == true)
+            {
+                SceneManager.LoadScene("ShootingRange");
             }
         }
 
         if(Input.GetKeyDown(KeyCode.Escape) && noteDisplayed == true)
         {
             noteDisplay.SetActive(false);
+            audioSource.clip = creepyMessage;
+            audioSource.Play();
         }
+
+    }
+
+    void PlayHint()
+    {
+        audioSource.clip = faceAnotherWay;
+        audioSource.Play();
     }
 
     void OnTriggerEnter(Collider other)
@@ -86,7 +137,8 @@ public class PlayerInteractions : MonoBehaviour
             }
             else
             {
-                //message you dont have the key yet(play sound)
+                audioSource.clip = doorLocked;
+                audioSource.Play();
             }
         }
 
@@ -110,6 +162,18 @@ public class PlayerInteractions : MonoBehaviour
         if(other.gameObject.CompareTag("Snake"))
         {
             player.TakeDamage(20);
+        }
+
+        if(other.gameObject.CompareTag("StageArea"))
+        {
+            audioSource.clip = stageHigh;
+            audioSource.Play();
+        }
+
+        if(other.gameObject.CompareTag("RangeArea"))
+        {
+            inRangeArea = true;
+            FBanner.SetActive(true);
         }
     }
 
@@ -136,6 +200,12 @@ public class PlayerInteractions : MonoBehaviour
         if(other.gameObject.CompareTag("NoteArea"))
         {
             inNoteArea = false;
+            FBanner.SetActive(false);
+        }
+
+        if(other.gameObject.CompareTag("RangeArea"))
+        {
+            inRangeArea = false;
             FBanner.SetActive(false);
         }
     }
