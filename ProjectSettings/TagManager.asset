@@ -19,6 +19,8 @@ TagManager:
   - StageArea
   - GameMusic
   - RangeArea
+  - FreddyArea
+  - IceCreamArea
   layers:
   - Default
   - TransparentFX

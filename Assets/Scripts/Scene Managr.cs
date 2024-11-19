@@ -3,6 +3,11 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuScript : MonoBehaviour
 {
+    void Update()
+    {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
     public void GoToSettings()
     {
         SceneManager.LoadScene("SettingsMenu");

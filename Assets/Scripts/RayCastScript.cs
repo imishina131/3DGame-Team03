@@ -9,6 +9,8 @@ public class RayCastScript : MonoBehaviour
     public LayerMask mask;
     AudioSource audioSource;
 
+    public Player player;
+
     public AudioClip gunShot;
     void Start()
     {
@@ -38,7 +40,9 @@ public class RayCastScript : MonoBehaviour
             if(Physics.Raycast(ray, out hit, 100, mask))//destroys the trap object if its in the way of the ray once the player left clicks
             {
                 Destroy(hit.collider.gameObject);
+                player.DestroyTarget();
             }
+            player.LoseBullet();
         }
     }
 }

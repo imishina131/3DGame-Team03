@@ -25,7 +25,7 @@ public class PlayerMovement : MonoBehaviour
     public float playerHeight;
     public LayerMask whatIsGround;
     bool grounded;
-    bool crouching;
+    public bool crouching;
 
     float initialVelocity = 600f;
 

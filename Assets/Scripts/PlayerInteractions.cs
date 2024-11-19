@@ -19,6 +19,14 @@ public class PlayerInteractions : MonoBehaviour
     public GameObject noteDisplay;
     public Player player;
     bool inRangeArea;
+    bool inFreddyArea;
+    public GameObject freddySpeech;
+    bool finishedSpeech;
+    public GameObject letDollFinish;
+    static bool hasbullets;
+    public GameObject instructions;
+    public GameObject bulletsInstructions;
+    bool inIceCreamArea;
 
     AudioSource audioSource;
     public AudioClip creepyMessage;
@@ -26,6 +34,7 @@ public class PlayerInteractions : MonoBehaviour
     public AudioClip faceAnotherWay;
     public AudioClip stageHigh;
     public AudioClip twistedFunHouse;
+    public AudioClip freddyTalk;
 
     public GameObject button;
     AudioSource doorAudio;
@@ -33,11 +42,15 @@ public class PlayerInteractions : MonoBehaviour
     public AudioClip doorOpen;
     public AudioClip buttonSound;
 
+    static int numberOfVisits = 0;
+
     public GameObject gun;
 
     Scene scene;
 
     Vector3 gunPos;
+
+    public PlayerMovement playerStats;
 
 
     // Start is called before the first frame update
@@ -45,6 +58,14 @@ public class PlayerInteractions : MonoBehaviour
     {
         scene = SceneManager.GetActiveScene();
         rb = GetComponent<Rigidbody>();
+        if(numberOfVisits > 0 && scene.name == "Level02")
+        {
+            HideSpeech();
+        }
+        else
+        {
+            Invoke("HideSpeech", 40f);
+        }
 
         if(scene.name == "Level01")
         {
@@ -54,9 +75,22 @@ public class PlayerInteractions : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
+    void HideSpeech()
+    {
+        freddySpeech.SetActive(false);
+        finishedSpeech = true;
+    }
+
     // Update is called once per frame
     void Update()
     {
+        if(scene.name == "Level02")
+        {
+            if(playerStats.crouching == true && inIceCreamArea == true)
+            {
+                FBanner.SetActive(true);
+            }
+        }
 
         if(Input.GetKeyDown(KeyCode.F))
         {
@@ -94,9 +128,26 @@ public class PlayerInteractions : MonoBehaviour
                 audioSource.Play();
             }
 
-            if(inRangeArea == true)
+            if(inRangeArea == true && finishedSpeech == false && numberOfVisits < 1)
+            {
+                letDollFinish.SetActive(true);
+            }
+            else if(inRangeArea == true && finishedSpeech == true && numberOfVisits < 1)
+            {
+                letDollFinish.SetActive(false);
+                instructions.SetActive(true);
+            }
+
+            if(inRangeArea == true  && hasbullets == true)
             {
                 SceneManager.LoadScene("ShootingRange");
+            }
+
+            if(inIceCreamArea == true && playerStats.crouching == true)
+            {
+                hasbullets = true;
+                numberOfVisits += 1;
+                SceneManager.LoadScene("FloorUnderVan");
             }
         }
 
@@ -106,6 +157,8 @@ public class PlayerInteractions : MonoBehaviour
             audioSource.clip = creepyMessage;
             audioSource.Play();
         }
+
+        Debug.Log(hasbullets);
 
     }
 
@@ -175,6 +228,13 @@ public class PlayerInteractions : MonoBehaviour
             inRangeArea = true;
             FBanner.SetActive(true);
         }
+
+        if(other.gameObject.CompareTag("IceCreamArea"))
+        {
+            inIceCreamArea = true;
+            bulletsInstructions.SetActive(true);
+        }
+
     }
 
     void OnTriggerExit(Collider other)
@@ -207,6 +267,14 @@ public class PlayerInteractions : MonoBehaviour
         {
             inRangeArea = false;
             FBanner.SetActive(false);
+            instructions.SetActive(false);
+            letDollFinish.SetActive(false);
+        }
+        if(other.gameObject.CompareTag("IceCreamArea"))
+        {
+            inIceCreamArea = false;
+            FBanner.SetActive(false);
+            bulletsInstructions.SetActive(false);
         }
     }
 
