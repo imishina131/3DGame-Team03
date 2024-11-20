@@ -24,6 +24,8 @@ TagManager:
   - Hand
   - BottomSpider
   - HeadSpider
+  - BottomSpider01
+  - BottomSpider02
   layers:
   - Default
   - TransparentFX
@@ -38,7 +40,7 @@ TagManager:
   - whatIsGround
   - RayCast
   - Spiders
-  - 
+  - Hand
   - 
   - 
   - 
