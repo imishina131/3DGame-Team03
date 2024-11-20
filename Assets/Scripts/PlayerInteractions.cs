@@ -58,11 +58,14 @@ public class PlayerInteractions : MonoBehaviour
     {
         scene = SceneManager.GetActiveScene();
         rb = GetComponent<Rigidbody>();
-        if(numberOfVisits > 0 && scene.name == "Level02")
+        if(scene.name == "Level02" && numberOfVisits > 0)
         {
-            HideSpeech();
+            if(numberOfVisits > 0)
+            {
+                HideSpeech();
+            }
         }
-        else
+        else if(scene.name == "Level02")
         {
             Invoke("HideSpeech", 40f);
         }
