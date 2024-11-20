@@ -7,9 +7,11 @@ public class BulletRayCast : MonoBehaviour
 {
     Camera camera;
     public LayerMask mask;
+    public LayerMask spiders;
     int bullets = 0;
 
     public Player player;
+    public HandScript handStats;
 
     void Start()
     {
@@ -26,9 +28,15 @@ public class BulletRayCast : MonoBehaviour
         mousePos = camera.ScreenToWorldPoint(mousePos);
         Debug.DrawRay(transform.position, mousePos - transform.position, Color.blue);
 
+        if(bullets == 5 && handStats.numberOfSpiders == 2)
+        {
+            SceneManager.LoadScene("Level02");
+        }
+
 
         if(Input.GetMouseButtonDown(0))
         {
+            Debug.Log("Spiders: " + handStats.numberOfSpiders);
             Ray ray = camera.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             Debug.Log("cast");
@@ -39,11 +47,8 @@ public class BulletRayCast : MonoBehaviour
                 player.AddBullet();
                 bullets += 1;
 
-                if(bullets == 5)
-                {
-                    SceneManager.LoadScene("Level02");
-                }
             }
+
         }
     }
 }

@@ -32,11 +32,14 @@ public class Player : MonoBehaviour
                 SceneManager.LoadScene("Level01");
                 health = 100;
             }
-
-            if(currentScene.name == "Level02")
+            else if(currentScene.name == "Level02")
             {
                 SceneManager.LoadScene("Level02");
                 health = 50;
+            }
+            else
+            {
+                SceneManager.LoadScene("LossScene");
             }
         }
 

@@ -21,6 +21,9 @@ TagManager:
   - RangeArea
   - FreddyArea
   - IceCreamArea
+  - Hand
+  - BottomSpider
+  - HeadSpider
   layers:
   - Default
   - TransparentFX
@@ -34,7 +37,7 @@ TagManager:
   - 
   - whatIsGround
   - RayCast
-  - 
+  - Spiders
   - 
   - 
   - 
