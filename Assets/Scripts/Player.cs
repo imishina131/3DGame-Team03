@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-    static int health = 100;
+    static float health = 100f;
     static int bullets = 0;
     public TMP_Text healthText;
     public TMP_Text bulletsText;
+    public Image healthBar;
     public int nonStaticBullets;
     Scene currentScene;
     int numberOfTargets = 3;
@@ -74,5 +76,6 @@ public class Player : MonoBehaviour
     {
         health = health - damage;
         Debug.Log("Health: " + health);
+        healthBar.fillAmount = health / 100f;
     }
 }

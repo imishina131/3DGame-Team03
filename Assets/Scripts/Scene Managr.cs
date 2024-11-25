@@ -32,4 +32,9 @@ public class MainMenuScript : MonoBehaviour
     {
         SceneManager.LoadScene("TransitionScene");
     }
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
 }
