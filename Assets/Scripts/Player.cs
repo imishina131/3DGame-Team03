@@ -24,8 +24,8 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        healthText.text = "Health: " + health;
-        bulletsText.text = "Bullets: " + bullets;
+        healthText.text = " " + health;
+        bulletsText.text = "Ammo: " + bullets;
 
         if(health <= 0)
         {

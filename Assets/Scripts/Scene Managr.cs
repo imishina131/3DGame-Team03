@@ -27,10 +27,20 @@ public class MainMenuScript : MonoBehaviour
     {
         SceneManager.LoadScene("AudioMenu"); 
     }
+    
+    public void GoToVideoScene()
+    {
+        SceneManager.LoadScene("VideoMenu"); 
+    }
 
     public void GoToLevel01()
     {
         SceneManager.LoadScene("TransitionScene");
+    }
+
+      public void GoToCreditsMenu()
+    {
+        SceneManager.LoadScene("CreditsMenu"); 
     }
 
     public void Quit()
