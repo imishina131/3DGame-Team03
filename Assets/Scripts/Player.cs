@@ -9,9 +9,9 @@ public class Player : MonoBehaviour
 {
     static float health = 100f;
     static int bullets = 0;
-    public TMP_Text healthText;
+    static int healthMax;
     public TMP_Text bulletsText;
-    public Image healthBar;
+    public Slider healthBar;
     public int nonStaticBullets;
     Scene currentScene;
     int numberOfTargets = 3;
@@ -24,20 +24,20 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        healthText.text = " " + health;
-        bulletsText.text = "Ammo: " + bullets;
+        bulletsText.text = bullets + "/5";
 
-        if(health <= 0)
+        if (health <= 0)
         {
             if(currentScene.name == "Level01")
             {
                 SceneManager.LoadScene("Level01");
-                health = 100;
+                healthMax = 100;
+                health = healthMax;
             }
             else if(currentScene.name == "Level02")
             {
                 SceneManager.LoadScene("Level02");
-                health = 50;
+                health = 70;
             }
             else
             {
@@ -54,6 +54,7 @@ public class Player : MonoBehaviour
             SceneManager.LoadScene("LossScene");
         }
 
+        healthBar.value = health;
         nonStaticBullets = bullets;
     }
 
@@ -76,6 +77,5 @@ public class Player : MonoBehaviour
     {
         health = health - damage;
         Debug.Log("Health: " + health);
-        healthBar.fillAmount = health / 100f;
     }
 }
