@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerInteractions : MonoBehaviour
 {
@@ -39,8 +40,12 @@ public class PlayerInteractions : MonoBehaviour
     public GameObject button;
     AudioSource doorAudio;
     AudioSource buttonAudio;
+    AudioSource keyAudio;
     public AudioClip doorOpen;
     public AudioClip buttonSound;
+    public AudioClip keyPickupSound; 
+
+    
 
     static int numberOfVisits = 0;
 
@@ -107,6 +112,8 @@ public class PlayerInteractions : MonoBehaviour
                 key.SetActive(false);
                 hasKey = true;
                 inKeyArea = false;
+                audioSource.clip = keyPickupSound; 
+                audioSource.Play();
             }
 
             if(inDoorArea == true && hasKey == true)
@@ -179,6 +186,7 @@ public class PlayerInteractions : MonoBehaviour
         audioSource.Play();
     }
 
+
     void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.CompareTag("Trampoline"))
@@ -226,6 +234,7 @@ public class PlayerInteractions : MonoBehaviour
         if(other.gameObject.CompareTag("Snake"))
         {
             player.TakeDamage(20);
+           
         }
 
         if(other.gameObject.CompareTag("StageArea"))

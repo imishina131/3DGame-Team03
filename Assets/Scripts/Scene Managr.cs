@@ -38,6 +38,11 @@ public class MainMenuScript : MonoBehaviour
         SceneManager.LoadScene("TransitionScene");
     }
 
+    public void GoToLevel02()
+    {
+        SceneManager.LoadScene("Level02");
+    }
+
       public void GoToCreditsMenu()
     {
         SceneManager.LoadScene("CreditsMenu"); 
