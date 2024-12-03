@@ -9,12 +9,16 @@ public class Player : MonoBehaviour
 {
     static float health = 100f;
     static int bullets = 0;
+    static int keys = 0;
     static int healthMax;
     public TMP_Text bulletsText;
+    public TMP_Text keysText;
     public Slider healthBar;
     public int nonStaticBullets;
     Scene currentScene;
     int numberOfTargets = 3;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +29,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         bulletsText.text = bullets + "/5";
+        keysText.text = keys + "/1";
 
         if (health <= 0)
         {
@@ -51,7 +56,7 @@ public class Player : MonoBehaviour
         }
         else if(currentScene.name == "ShootingRange" && bullets <= 0)
         {
-            SceneManager.LoadScene("LossScene");
+            SceneManager.LoadScene("Level02");
         }
 
         healthBar.value = health;
@@ -73,9 +78,20 @@ public class Player : MonoBehaviour
         numberOfTargets -= 1;
     }
 
+    public void GetKey()
+    {
+        keys += 1;
+    }
+
+    public void UseKey()
+    {
+        keys -= 1;
+    }
+
     public void TakeDamage(int damage)
     {
         health = health - damage;
         Debug.Log("Health: " + health);
     }
+
 }

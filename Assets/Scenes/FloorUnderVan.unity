@@ -3929,6 +3929,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletsText: {fileID: 1664569657}
+  keysText: {fileID: 350369716}
   healthBar: {fileID: 2113516998}
   nonStaticBullets: 0
 --- !u!1 &2060819057 stripped

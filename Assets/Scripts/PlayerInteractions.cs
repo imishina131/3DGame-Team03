@@ -52,6 +52,9 @@ public class PlayerInteractions : MonoBehaviour
 
     public PlayerMovement playerStats;
 
+    public GameObject playerObject;
+    static Vector3 posSaved;
+
 
     // Start is called before the first frame update
     void Start()
@@ -63,6 +66,7 @@ public class PlayerInteractions : MonoBehaviour
             if(numberOfVisits > 0)
             {
                 HideSpeech();
+                playerObject.transform.position = posSaved;
             }
         }
         else if(scene.name == "Level02")
@@ -99,6 +103,7 @@ public class PlayerInteractions : MonoBehaviour
         {
             if(inKeyArea == true)
             {
+                player.GetKey();
                 key.SetActive(false);
                 hasKey = true;
                 inKeyArea = false;
@@ -107,6 +112,7 @@ public class PlayerInteractions : MonoBehaviour
             if(inDoorArea == true && hasKey == true)
             {
                 door.SetActive(false);
+                player.UseKey();
                 doorAudio.clip = doorOpen;
                 doorAudio.Play();
                 hasKey = false;
@@ -143,6 +149,7 @@ public class PlayerInteractions : MonoBehaviour
 
             if(inRangeArea == true  && hasbullets == true)
             {
+                posSaved = playerObject.transform.position;
                 SceneManager.LoadScene("ShootingRange");
             }
 
@@ -150,6 +157,7 @@ public class PlayerInteractions : MonoBehaviour
             {
                 hasbullets = true;
                 numberOfVisits += 1;
+                posSaved = playerObject.transform.position;
                 SceneManager.LoadScene("FloorUnderVan");
             }
         }
