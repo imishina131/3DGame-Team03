@@ -28,6 +28,7 @@ public class PlayerInteractions : MonoBehaviour
     public GameObject instructions;
     public GameObject bulletsInstructions;
     bool inIceCreamArea;
+    bool dollDead;
 
     AudioSource audioSource;
     public AudioClip creepyMessage;
@@ -208,6 +209,12 @@ public class PlayerInteractions : MonoBehaviour
         if(other.gameObject.CompareTag("Trampoline"))
         {
             rb.AddForce(new Vector3(0.0f, 300.0f, 0.0f));
+        }
+
+        if(other.gameObject.CompareTag("HealthPotion"))
+        {
+            player.GainHealth();
+            Destroy(other.gameObject);
         }
 
         if(other.gameObject.CompareTag("KeyArea") && hasKey == false)

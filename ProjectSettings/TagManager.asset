@@ -27,6 +27,10 @@ TagManager:
   - BottomSpider01
   - BottomSpider02
   - DollArea
+  - LastShapesArea
+  - HealthPotion
+  - SquareShape
+  - XShape
   layers:
   - Default
   - TransparentFX

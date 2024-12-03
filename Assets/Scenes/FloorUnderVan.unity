@@ -3934,6 +3934,7 @@ MonoBehaviour:
   firePotionsText: {fileID: 1229066465}
   healthBar: {fileID: 2113516998}
   nonStaticBullets: 0
+  hasCookies: 0
 --- !u!1 &2060819057 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: c1c162e3ac07d3b40af3f97329443196, type: 3}

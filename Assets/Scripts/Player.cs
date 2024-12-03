@@ -112,4 +112,16 @@ public class Player : MonoBehaviour
         Debug.Log("Health: " + health);
     }
 
+    public void GainHealth()
+    {
+        if(health <= 80)
+        {
+            health = health + 20;
+        }
+        else if(health > 80)
+        {
+            health = 100;
+        }
+    }
+
 }
