@@ -3930,6 +3930,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletsText: {fileID: 1664569657}
   keysText: {fileID: 350369716}
+  cookiesText: {fileID: 1078407321}
+  firePotionsText: {fileID: 1229066465}
   healthBar: {fileID: 2113516998}
   nonStaticBullets: 0
 --- !u!1 &2060819057 stripped

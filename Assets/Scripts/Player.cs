@@ -13,10 +13,16 @@ public class Player : MonoBehaviour
     static int healthMax;
     public TMP_Text bulletsText;
     public TMP_Text keysText;
+    public TMP_Text cookiesText;
+    public TMP_Text firePotionsText;
     public Slider healthBar;
     public int nonStaticBullets;
     Scene currentScene;
     int numberOfTargets = 3;
+    static int numberOfFirePotions = 0;
+    static int cookies = 0;
+    public bool hasCookies;
+
 
 
     // Start is called before the first frame update
@@ -28,8 +34,18 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(cookies > 0)
+        {
+            hasCookies = true;
+        }
+        else
+        {
+            hasCookies = false;
+        }
         bulletsText.text = bullets + "/5";
         keysText.text = keys + "/1";
+        cookiesText.text = cookies + "/1";
+        firePotionsText.text = numberOfFirePotions + "/5";
 
         if (health <= 0)
         {
@@ -52,7 +68,9 @@ public class Player : MonoBehaviour
 
         if(numberOfTargets <= 0)
         {
-            SceneManager.LoadScene("WinScene");
+            numberOfFirePotions += 5;
+            cookies += 1;
+            SceneManager.LoadScene("Level02");
         }
         else if(currentScene.name == "ShootingRange" && bullets <= 0)
         {

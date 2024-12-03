@@ -26,6 +26,7 @@ TagManager:
   - HeadSpider
   - BottomSpider01
   - BottomSpider02
+  - DollArea
   layers:
   - Default
   - TransparentFX

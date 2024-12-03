@@ -22,7 +22,7 @@ public class PlayerInteractions : MonoBehaviour
     bool inRangeArea;
     bool inFreddyArea;
     public GameObject freddySpeech;
-    bool finishedSpeech;
+    static bool finishedSpeech;
     public GameObject letDollFinish;
     static bool hasbullets;
     public GameObject instructions;
@@ -38,12 +38,22 @@ public class PlayerInteractions : MonoBehaviour
     public AudioClip freddyTalk;
 
     public GameObject button;
+    public GameObject vendor;
+    public GameObject doll;
     AudioSource doorAudio;
     AudioSource buttonAudio;
     AudioSource keyAudio;
+    AudioSource vendorAudio;
+    AudioSource dollAudio;
     public AudioClip doorOpen;
     public AudioClip buttonSound;
-    public AudioClip keyPickupSound; 
+    public AudioClip keyPickupSound;
+    public AudioClip vendorMessage;
+    public AudioClip noBullets;
+    public AudioClip howDoYouKnow;
+    public AudioClip takeCookie;
+    public AudioClip getMoving;
+    public AudioClip noCookieNoChat;
 
     
 
@@ -72,11 +82,14 @@ public class PlayerInteractions : MonoBehaviour
             {
                 HideSpeech();
                 playerObject.transform.position = posSaved;
+                dollAudio = doll.GetComponent<AudioSource>();
             }
         }
         else if(scene.name == "Level02")
         {
             Invoke("HideSpeech", 40f);
+            vendorAudio = vendor.GetComponent<AudioSource>();
+            dollAudio = doll.GetComponent<AudioSource>();
         }
 
         if(scene.name == "Level01")
@@ -96,6 +109,7 @@ public class PlayerInteractions : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log("Speechfinish = " + finishedSpeech);
         if(scene.name == "Level02")
         {
             if(playerStats.crouching == true && inIceCreamArea == true)
@@ -150,6 +164,8 @@ public class PlayerInteractions : MonoBehaviour
             }
             else if(inRangeArea == true && finishedSpeech == true && numberOfVisits < 1)
             {
+                audioSource.clip = noBullets;
+                audioSource.Play();
                 letDollFinish.SetActive(false);
                 instructions.SetActive(true);
             }
@@ -245,16 +261,55 @@ public class PlayerInteractions : MonoBehaviour
 
         if(other.gameObject.CompareTag("RangeArea"))
         {
-            inRangeArea = true;
-            FBanner.SetActive(true);
+            if(finishedSpeech)
+            {
+                inRangeArea = true;
+                FBanner.SetActive(true);
+            }
         }
 
         if(other.gameObject.CompareTag("IceCreamArea"))
         {
-            inIceCreamArea = true;
-            bulletsInstructions.SetActive(true);
+            if(finishedSpeech && numberOfVisits < 1)
+            {
+                vendorAudio.clip = vendorMessage;
+                vendorAudio.Play();
+                inIceCreamArea = true;
+                bulletsInstructions.SetActive(true);
+            }
         }
 
+        if(other.gameObject.CompareTag("DollArea"))
+        {
+            if(finishedSpeech)
+            {
+                if(player.hasCookies == true)
+                {
+                    dollAudio.clip = takeCookie;
+                    dollAudio.Play();
+                    Invoke("SayHowDoYouKnow", 16.0f);
+                    Invoke("HearGetMoving", 20.0f);
+                }
+                else
+                {
+                    dollAudio.clip = noCookieNoChat;
+                    dollAudio.Play();
+                }
+            }
+        }
+
+    }
+
+    void SayHowDoYouKnow()
+    {
+        audioSource.clip = howDoYouKnow;
+        audioSource.Play();
+    }
+
+    void HearGetMoving()
+    {
+        dollAudio.clip = getMoving;
+        dollAudio.Play();
     }
 
     void OnTriggerExit(Collider other)

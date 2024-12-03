@@ -2980,8 +2980,10 @@ MonoBehaviour:
   button: {fileID: 0}
   doorOpen: {fileID: 0}
   buttonSound: {fileID: 0}
+  keyPickupSound: {fileID: 0}
   gun: {fileID: 121900101}
   playerStats: {fileID: 0}
+  playerObject: {fileID: 0}
 --- !u!114 &942564859
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3109,6 +3111,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletsText: {fileID: 148174840}
   keysText: {fileID: 307898197}
+  cookiesText: {fileID: 395980845}
+  firePotionsText: {fileID: 1688340787}
   healthBar: {fileID: 1830228722}
   nonStaticBullets: 0
 --- !u!1 &962990796
