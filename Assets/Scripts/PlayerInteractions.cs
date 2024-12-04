@@ -75,7 +75,7 @@ public class PlayerInteractions : MonoBehaviour
     public PlayerMovement playerStats;
 
     public GameObject playerObject;
-    static Vector3 posSaved;
+    public static Vector3 posSaved;
 
     bool hasCircle;
     bool hasTriangle;
@@ -89,12 +89,13 @@ public class PlayerInteractions : MonoBehaviour
         Debug.Log("visit: " + numberOfVisits);
         scene = SceneManager.GetActiveScene();
         rb = GetComponent<Rigidbody>();
-        if(scene.name == "Level02" && numberOfVisits > 0)
+        transform.position = posSaved;
+        if (scene.name == "Level02" && numberOfVisits > 0)
         {
             if(numberOfVisits > 0)
             {
                 HideSpeech();
-                playerObject.transform.position = posSaved;
+                
                 dollAudio = doll.GetComponent<AudioSource>();
             }
         }
@@ -122,11 +123,13 @@ public class PlayerInteractions : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log("Pos: " + posSaved);
+        /*
         if(scene.name == "Level02")
         {
             posSaved = playerObject.transform.position;
         }
-        Debug.Log("Pos: " + posSaved);
+        */
 
         Debug.Log("Speechfinish = " + finishedSpeech);
         if(scene.name == "Level02")
@@ -200,14 +203,16 @@ public class PlayerInteractions : MonoBehaviour
 
             if(inRangeArea == true  && hasbullets == true)
             {
-                SceneManager.LoadScene("ShootingRange");
+                StartCoroutine(SavePosition("ShootingRange"));
             }
 
             if(inIceCreamArea == true && playerStats.crouching == true)
             {
                 hasbullets = true;
                 numberOfVisits += 1;
-                SceneManager.LoadScene("FloorUnderVan");
+                StartCoroutine(SavePosition("FloorUnderVan"));
+                //posSaved = playerObject.transform.position;
+                //SceneManager.LoadScene("FloorUnderVan");
             }
 
             if(inLastShapesArea == true)
@@ -239,6 +244,14 @@ public class PlayerInteractions : MonoBehaviour
         }
 
         Debug.Log(hasbullets);
+
+    }
+
+    IEnumerator SavePosition(string scene)
+    {
+        posSaved = playerObject.transform.position;
+        yield return new WaitForSeconds(2);
+        SceneManager.LoadScene(scene);
 
     }
 

@@ -37,7 +37,7 @@ public class KnifeClownBehavior : MonoBehaviour
     {
         while(shootingFirstDoor == true)
         {
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(2.26f);
             Vector3 direction = (new Vector3(knifeEndPos.transform.position.x, knifeEndPos.transform.position.y, knifeEndPos.transform.position.z) - (knifePos.transform.position));
 
             knifeClone = Instantiate(knife, knifePos.transform.position, Quaternion.identity);
@@ -63,7 +63,7 @@ public class KnifeClownBehavior : MonoBehaviour
         shootingSecondDoor = true;
         while(shootingSecondDoor == true)
         {
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(2.26f);
             Vector3 direction = (new Vector3(knifeTarget.transform.position.x, knifeTarget.transform.position.y, knifeTarget.transform.position.z) - (knifePos.transform.position));
 
             knifeClone = Instantiate(knife, knifePos.transform.position, Quaternion.identity);
