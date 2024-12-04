@@ -22,6 +22,8 @@ public class Player : MonoBehaviour
     static int numberOfFirePotions = 0;
     static int cookies = 0;
     public bool hasCookies;
+    public bool hasPotions;
+    public bool ghostGirlDead;
 
 
 
@@ -41,6 +43,11 @@ public class Player : MonoBehaviour
         else
         {
             hasCookies = false;
+        }
+
+        if(numberOfFirePotions > 0)
+        {
+            hasPotions = true;
         }
         bulletsText.text = bullets + "/5";
         keysText.text = keys + "/1";
@@ -121,6 +128,16 @@ public class Player : MonoBehaviour
         else if(health > 80)
         {
             health = 100;
+        }
+    }
+
+    public void usePotion()
+    {
+        numberOfFirePotions -= 1;
+
+        if(numberOfFirePotions == 0)
+        {
+            hasPotions = false;
         }
     }
 

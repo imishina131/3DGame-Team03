@@ -29,6 +29,9 @@ public class PlayerInteractions : MonoBehaviour
     public GameObject bulletsInstructions;
     bool inIceCreamArea;
     bool dollDead;
+    bool inLastShapesArea;
+    bool inXArea;
+    bool inSquareArea;
 
     AudioSource audioSource;
     public AudioClip creepyMessage;
@@ -57,7 +60,8 @@ public class PlayerInteractions : MonoBehaviour
     public AudioClip noCookieNoChat;
 
     
-
+    public Transform fireballOrigin;
+    public GameObject fireball;
     static int numberOfVisits = 0;
 
     public GameObject gun;
@@ -71,10 +75,16 @@ public class PlayerInteractions : MonoBehaviour
     public GameObject playerObject;
     static Vector3 posSaved;
 
+    bool hasCircle;
+    bool hasTriangle;
+    bool hasX;
+    bool hasSquare;
+
 
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log("visit: " + numberOfVisits);
         scene = SceneManager.GetActiveScene();
         rb = GetComponent<Rigidbody>();
         if(scene.name == "Level02" && numberOfVisits > 0)
@@ -110,12 +120,27 @@ public class PlayerInteractions : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(scene.name == "Level02")
+        {
+            posSaved = playerObject.transform.position;
+        }
+        Debug.Log("Pos: " + posSaved);
+
         Debug.Log("Speechfinish = " + finishedSpeech);
         if(scene.name == "Level02")
         {
             if(playerStats.crouching == true && inIceCreamArea == true)
             {
                 FBanner.SetActive(true);
+            }
+        }
+
+        if(Input.GetMouseButtonDown(0))
+        {
+            if(scene.name == "Level02" && player.hasPotions == true)
+            {
+                Instantiate(fireball, fireballOrigin.position, fireballOrigin.rotation);
+                player.usePotion();
             }
         }
 
@@ -173,7 +198,6 @@ public class PlayerInteractions : MonoBehaviour
 
             if(inRangeArea == true  && hasbullets == true)
             {
-                posSaved = playerObject.transform.position;
                 SceneManager.LoadScene("ShootingRange");
             }
 
@@ -181,8 +205,27 @@ public class PlayerInteractions : MonoBehaviour
             {
                 hasbullets = true;
                 numberOfVisits += 1;
-                posSaved = playerObject.transform.position;
                 SceneManager.LoadScene("FloorUnderVan");
+            }
+
+            if(inLastShapesArea == true)
+            {
+                Destroy(GameObject.FindGameObjectWithTag("TriangleShape"));
+                hasTriangle = true;
+                Destroy(GameObject.FindGameObjectWithTag("CircleShape"));
+                hasCircle = true;
+            }
+
+            if(inXArea == true)
+            {
+                Destroy(GameObject.FindGameObjectWithTag("XShape"));
+                hasX = true;
+            }
+
+            if(inSquareArea == true)
+            {
+                Destroy(GameObject.FindGameObjectWithTag("SquareShape"));
+                hasSquare = true;
             }
         }
 
@@ -305,6 +348,34 @@ public class PlayerInteractions : MonoBehaviour
             }
         }
 
+        if(other.gameObject.CompareTag("LastShapesArea"))
+        {
+            if(player.ghostGirlDead == true)
+            {
+                FBanner.SetActive(true);
+                inLastShapesArea = true;
+            }
+        }
+
+        if(other.gameObject.CompareTag("SquareShape"))
+        {
+            if(player.hasPotions == true)
+            {
+                FBanner.SetActive(true);
+                inSquareArea = true;
+            }
+        }
+
+        if(other.gameObject.CompareTag("XShape"))
+        {
+            if(player.hasPotions == true)
+            {
+                FBanner.SetActive(true);
+                inXArea = true;
+            }
+        }
+
+
     }
 
     void SayHowDoYouKnow()
@@ -357,6 +428,33 @@ public class PlayerInteractions : MonoBehaviour
             inIceCreamArea = false;
             FBanner.SetActive(false);
             bulletsInstructions.SetActive(false);
+        }
+
+        if(other.gameObject.CompareTag("LastShapesArea"))
+        {
+            if(player.ghostGirlDead == true)
+            {
+                FBanner.SetActive(false);
+                inLastShapesArea = false;
+            }
+        }
+
+        if(other.gameObject.CompareTag("SquareShape"))
+        {
+            if(player.hasPotions == true)
+            {
+                FBanner.SetActive(false);
+                inSquareArea = false;
+            }
+        }
+
+        if(other.gameObject.CompareTag("XShape"))
+        {
+            if(player.hasPotions == true)
+            {
+                FBanner.SetActive(false);
+                inXArea = false;
+            }
         }
     }
 

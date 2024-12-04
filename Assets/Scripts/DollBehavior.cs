@@ -13,6 +13,8 @@ public class DollBehavior : MonoBehaviour
 
     public GameObject playerObject;
     public Player player;
+
+    public GameObject jumpscare;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +26,7 @@ public class DollBehavior : MonoBehaviour
     {
         float distance = Vector3.Distance(playerObject.transform.position, transform.position);
         Debug.Log("distance: " + distance);
+        Debug.Log("attackarea: " + inAttackArea);
 
         if(distance <= 40 && !onBreak)
         {
@@ -55,12 +58,19 @@ public class DollBehavior : MonoBehaviour
 
     IEnumerator Attack()
     {
-        while(inAttackArea)
+        if(inAttackArea)
         {
+            jumpscare.SetActive(true);
+            Invoke("TakeOffJumpscare", 0.5f);
             player.TakeDamage(30);
             //animation
             yield return new WaitForSeconds(3);
             onBreak = false;
         }
+    }
+
+    void TakeOffJumpscare()
+    {
+        jumpscare.SetActive(false);
     }
 }

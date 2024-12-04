@@ -31,6 +31,11 @@ TagManager:
   - HealthPotion
   - SquareShape
   - XShape
+  - AttackArea
+  - GhostGirlArea
+  - GhostGirl
+  - CircleShape
+  - TriangleShape
   layers:
   - Default
   - TransparentFX
