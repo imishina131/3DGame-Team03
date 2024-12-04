@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Cache;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -32,6 +33,7 @@ public class PlayerInteractions : MonoBehaviour
     bool inLastShapesArea;
     bool inXArea;
     bool inSquareArea;
+    public GameObject cage;
 
     AudioSource audioSource;
     public AudioClip creepyMessage;
@@ -339,6 +341,10 @@ public class PlayerInteractions : MonoBehaviour
                     dollAudio.Play();
                     Invoke("SayHowDoYouKnow", 16.0f);
                     Invoke("HearGetMoving", 20.0f);
+                }
+                else if(hasCircle == true && hasSquare == true && hasTriangle == true && hasX == true)
+                {
+                    cage.SetActive(true);
                 }
                 else
                 {
