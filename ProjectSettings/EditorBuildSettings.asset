@@ -44,4 +44,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LossScene.unity
     guid: 8f6d758b445e3b04d8ac015d66a6e91c
+  - enabled: 1
+    path: Assets/Scenes/PuzzleGame.unity
+    guid: 18f87cf0536b40a40a724a8f860306db
   m_configObjects: {}
