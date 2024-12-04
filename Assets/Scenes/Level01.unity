@@ -1359,9 +1359,19 @@ MonoBehaviour:
   twistedFunHouse: {fileID: 8300000, guid: 7b041c8c380c8e24283ee50f4eb13e73, type: 3}
   freddyTalk: {fileID: 0}
   button: {fileID: 1303760126}
+  vendor: {fileID: 0}
+  doll: {fileID: 0}
   doorOpen: {fileID: 8300000, guid: e19e0973ec6a4f44d847c3e9035f0d85, type: 3}
   buttonSound: {fileID: 8300000, guid: 84796ed2246e1b04cbddcf594ad341e1, type: 3}
   keyPickupSound: {fileID: 8300000, guid: f5d328268843343ed99e227840d80394, type: 3}
+  vendorMessage: {fileID: 0}
+  noBullets: {fileID: 0}
+  howDoYouKnow: {fileID: 0}
+  takeCookie: {fileID: 0}
+  getMoving: {fileID: 0}
+  noCookieNoChat: {fileID: 0}
+  fireballOrigin: {fileID: 0}
+  fireball: {fileID: 0}
   gun: {fileID: 0}
   playerStats: {fileID: 0}
   playerObject: {fileID: 0}
@@ -1379,8 +1389,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletsText: {fileID: 1561023960}
   keysText: {fileID: 571859732}
+  cookiesText: {fileID: 2121229962}
+  firePotionsText: {fileID: 989316666}
   healthBar: {fileID: 1887155857}
   nonStaticBullets: 0
+  hasCookies: 0
+  hasPotions: 0
+  ghostGirlDead: 0
 --- !u!82 &154216042
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3947,7 +3962,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 419996717}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.11137518, y: 0.000000017729198, z: -4.886735e-10, w: 0.99377847}
+  m_LocalRotation: {x: 0.11137519, y: -0.000000017729198, z: 4.886737e-10, w: 0.99377847}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
