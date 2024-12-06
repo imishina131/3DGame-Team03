@@ -23,6 +23,12 @@ public class MainMenuScript : MonoBehaviour
         SceneManager.LoadScene("HelpMenu"); 
     }
 
+       public void GoToRulesScene()
+    {
+        SceneManager.LoadScene("RulesScene"); 
+    }
+
+
      public void GoToAudioScene()
     {
         SceneManager.LoadScene("AudioMenu"); 
