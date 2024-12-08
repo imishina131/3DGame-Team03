@@ -13,6 +13,7 @@ public class DollBehavior : MonoBehaviour
 
     public GameObject playerObject;
     public Player player;
+    public GameObject potionsHint;
 
     public GameObject jumpscare;
     // Start is called before the first frame update
@@ -31,9 +32,11 @@ public class DollBehavior : MonoBehaviour
         if(distance <= 40 && !onBreak)
         {
             agent.SetDestination(playerObject.transform.position);
+            potionsHint.SetActive(true);
         }
         else if(distance > 40)
         {
+            potionsHint.SetActive(false);
             agent.SetDestination(startPoint.position);
         }
     }
@@ -60,13 +63,19 @@ public class DollBehavior : MonoBehaviour
     {
         if(inAttackArea)
         {
-            jumpscare.SetActive(true);
-            Invoke("TakeOffJumpscare", 0.5f);
-            player.TakeDamage(30);
+            animator.SetTrigger("pre-attack");
+            Invoke("ShowJumpscare", 1.5f);
+            Invoke("TakeOffJumpscare", 2.0f);
             //animation
             yield return new WaitForSeconds(3);
             onBreak = false;
         }
+    }
+
+    void ShowJumpscare()
+    {
+        player.TakeDamage(30);
+        jumpscare.SetActive(true);
     }
 
     void TakeOffJumpscare()

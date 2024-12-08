@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-    static float health = 100f;
+    public static float health = 100f;
     static int bullets = 0;
     static int keys = 0;
     static int healthMax;
@@ -20,10 +20,14 @@ public class Player : MonoBehaviour
     Scene currentScene;
     int numberOfTargets = 3;
     static int numberOfFirePotions = 0;
-    static int cookies = 0;
+    public static int cookies = 0;
     public bool hasCookies;
     public bool hasPotions;
     public bool ghostGirlDead;
+
+    public Image damageVfx; 
+    public AudioSource audioSource;  
+    public AudioClip damageSound; 
 
 
 
@@ -31,6 +35,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         currentScene = SceneManager.GetActiveScene();
+        damageVfx.color = new Color(1f, 1f, 1f, 0f);
     }
 
     // Update is called once per frame
@@ -52,7 +57,7 @@ public class Player : MonoBehaviour
         bulletsText.text = bullets + "/5";
         keysText.text = keys + "/1";
         cookiesText.text = cookies + "/1";
-        firePotionsText.text = numberOfFirePotions + "/5";
+        firePotionsText.text = numberOfFirePotions + "/4";
 
         if (health <= 0)
         {
@@ -61,11 +66,15 @@ public class Player : MonoBehaviour
                 SceneManager.LoadScene("Level01");
                 healthMax = 100;
                 health = healthMax;
+                keys = 0;
             }
             else if(currentScene.name == "Level02")
             {
                 SceneManager.LoadScene("Level02");
-                health = 70;
+                health = 100;
+                bullets = 0;
+                cookies = 0;
+                numberOfFirePotions = 0;
             }
             else
             {
@@ -75,8 +84,23 @@ public class Player : MonoBehaviour
 
         if(numberOfTargets <= 0)
         {
-            numberOfFirePotions += 5;
-            cookies += 1;
+            if(numberOfFirePotions == 0)
+            {
+                numberOfFirePotions += 4;
+            }
+            else if(numberOfFirePotions > 0)
+            {
+                numberOfFirePotions = 4;
+            }
+
+            if(cookies == 0)
+            {
+                cookies += 1;
+            }
+            else if(cookies > 0)
+            {
+                cookies = 1;
+            }
             SceneManager.LoadScene("Level02");
         }
         else if(currentScene.name == "ShootingRange" && bullets <= 0)
@@ -117,6 +141,15 @@ public class Player : MonoBehaviour
     {
         health = health - damage;
         Debug.Log("Health: " + health);
+        StartCoroutine(FlashDamageEffect());
+    }
+
+    private IEnumerator FlashDamageEffect()
+    {
+        damageVfx.color = new Color(1f, 0f, 0f, 1f); 
+        audioSource.PlayOneShot(damageSound);         
+        yield return new WaitForSeconds(0.2f);       
+        damageVfx.color = new Color(1f, 1f, 1f, 0f); 
     }
 
     public void GainHealth()
@@ -138,6 +171,16 @@ public class Player : MonoBehaviour
         if(numberOfFirePotions == 0)
         {
             hasPotions = false;
+        }
+    }
+
+    public void useCookie()
+    {
+        cookies -= 1;
+
+        if(cookies == 0)
+        {
+            hasCookies = false;
         }
     }
 

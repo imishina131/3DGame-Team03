@@ -41,7 +41,7 @@ public class MainMenuScript : MonoBehaviour
 
     public void GoToLevel01()
     {
-        SceneManager.LoadScene("TransitionScene");
+        SceneManager.LoadScene("Level01");
     }
 
     public void GoToLevel02()

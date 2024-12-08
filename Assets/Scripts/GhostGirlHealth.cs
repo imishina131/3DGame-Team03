@@ -6,10 +6,11 @@ public class GhostGirlHealth : MonoBehaviour
 {
     int health = 100;
     public Player player;
+    public GameObject potionsHint;
     // Start is called before the first frame update
     void Start()
     {
-        
+        health = 100;
     }
 
     // Update is called once per frame
@@ -25,6 +26,7 @@ public class GhostGirlHealth : MonoBehaviour
         if(health <= 0)
         {
             player.ghostGirlDead = true;
+            potionsHint.SetActive(false);
             Destroy(gameObject);
         }
     }

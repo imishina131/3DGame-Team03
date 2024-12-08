@@ -13,6 +13,9 @@ public class HandScript : MonoBehaviour
     public GameObject spider01;
     public GameObject spider02;
 
+    public SpiderFollow spider01Mov;
+    public SpiderFollow spider02Mov;
+
     public int numberOfSpiders;
 
     public Player player;
@@ -55,6 +58,10 @@ public class HandScript : MonoBehaviour
     {
         if(other.gameObject.CompareTag("HeadSpider"))
         {
+            if(other.TryGetComponent<SpiderAttack>(out SpiderAttack spiderAnimator))
+            {
+                spiderAnimator.Attack();
+            }
             player.TakeDamage(40);
         }
 

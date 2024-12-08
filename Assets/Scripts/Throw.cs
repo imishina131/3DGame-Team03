@@ -17,7 +17,6 @@ public class Throw : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        rb.velocity = transform.forward * throwSpeed;
         ghostGirl = GameObject.FindGameObjectWithTag("GhostGirl");
         ghostGirlHealth = ghostGirl.GetComponent<GhostGirlHealth>();
     }

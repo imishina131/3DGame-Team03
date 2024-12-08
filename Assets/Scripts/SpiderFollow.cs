@@ -7,6 +7,7 @@ public class SpiderFollow : MonoBehaviour
 {
     public NavMeshAgent spider;
     public Transform player;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,4 +19,6 @@ public class SpiderFollow : MonoBehaviour
     {
         spider.SetDestination(player.position);
     }
+
+
 }

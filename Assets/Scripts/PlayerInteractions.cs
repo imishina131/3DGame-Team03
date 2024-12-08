@@ -46,6 +46,9 @@ public class PlayerInteractions : MonoBehaviour
     public GameObject button;
     public GameObject vendor;
     public GameObject doll;
+    public GameObject ghostGirl;
+    public GameObject fourShapesText;
+    GameObject fireballClone;
     AudioSource doorAudio;
     AudioSource buttonAudio;
     AudioSource keyAudio;
@@ -81,6 +84,9 @@ public class PlayerInteractions : MonoBehaviour
     bool hasTriangle;
     bool hasX;
     bool hasSquare;
+    bool gaveCookie;
+
+    public int fireballspeed;
 
 
     // Start is called before the first frame update
@@ -101,7 +107,7 @@ public class PlayerInteractions : MonoBehaviour
         }
         else if(scene.name == "Level02")
         {
-            Invoke("HideSpeech", 40f);
+            Invoke("HideSpeech", 35f);
             vendorAudio = vendor.GetComponent<AudioSource>();
             dollAudio = doll.GetComponent<AudioSource>();
         }
@@ -123,6 +129,7 @@ public class PlayerInteractions : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         Debug.Log("Pos: " + posSaved);
         /*
         if(scene.name == "Level02")
@@ -138,13 +145,24 @@ public class PlayerInteractions : MonoBehaviour
             {
                 FBanner.SetActive(true);
             }
+
+            if(hasCircle == true && hasSquare == true && hasTriangle == true && hasX == true)
+            {
+                fourShapesText.SetActive(true);
+            }
+            else
+            {
+                fourShapesText.SetActive(false);
+            }
         }
 
         if(Input.GetMouseButtonDown(0))
         {
             if(scene.name == "Level02" && player.hasPotions == true)
             {
-                Instantiate(fireball, fireballOrigin.position, fireballOrigin.rotation);
+                Vector3 direction = (new Vector3(ghostGirl.transform.position.x, ghostGirl.transform.position.y + 8, ghostGirl.transform.position.z) - (fireballOrigin.transform.position));
+                fireballClone = Instantiate(fireball, fireballOrigin.position, Quaternion.identity);
+                fireballClone.GetComponent<Rigidbody>().AddForce(direction * fireballspeed, ForceMode.Impulse);
                 player.usePotion();
             }
         }
@@ -247,6 +265,13 @@ public class PlayerInteractions : MonoBehaviour
 
     }
 
+    public void LeaveMessage()
+    {
+        noteDisplay.SetActive(false);
+        audioSource.clip = creepyMessage;
+        audioSource.Play();
+    }
+
     IEnumerator SavePosition(string scene)
     {
         posSaved = playerObject.transform.position;
@@ -271,8 +296,11 @@ public class PlayerInteractions : MonoBehaviour
 
         if(other.gameObject.CompareTag("HealthPotion"))
         {
-            player.GainHealth();
-            Destroy(other.gameObject);
+            if (Player.health < 100)
+            {
+                player.GainHealth();
+                Destroy(other.gameObject);
+            }
         }
 
         if(other.gameObject.CompareTag("KeyArea") && hasKey == false)
@@ -335,11 +363,11 @@ public class PlayerInteractions : MonoBehaviour
 
         if(other.gameObject.CompareTag("IceCreamArea"))
         {
+            inIceCreamArea = true;
             if(finishedSpeech && numberOfVisits < 1)
             {
                 vendorAudio.clip = vendorMessage;
                 vendorAudio.Play();
-                inIceCreamArea = true;
                 bulletsInstructions.SetActive(true);
             }
         }
@@ -357,9 +385,10 @@ public class PlayerInteractions : MonoBehaviour
                 }
                 else if(hasCircle == true && hasSquare == true && hasTriangle == true && hasX == true)
                 {
-                    cage.SetActive(true);
+                    Invoke("DropCage", 2.0f);
+                    StartCoroutine(LoadPuzzleLevel());
                 }
-                else
+                else if(player.hasCookies == false && gaveCookie == false)
                 {
                     dollAudio.clip = noCookieNoChat;
                     dollAudio.Play();
@@ -378,27 +407,34 @@ public class PlayerInteractions : MonoBehaviour
 
         if(other.gameObject.CompareTag("SquareShape"))
         {
-            if(player.hasPotions == true)
-            {
-                FBanner.SetActive(true);
-                inSquareArea = true;
-            }
+            FBanner.SetActive(true);
+            inSquareArea = true;
         }
 
         if(other.gameObject.CompareTag("XShape"))
         {
-            if(player.hasPotions == true)
-            {
-                FBanner.SetActive(true);
-                inXArea = true;
-            }
+            FBanner.SetActive(true);
+            inXArea = true;
         }
 
+    }
 
+    void DropCage()
+    {
+        cage.SetActive(true);
+        StartCoroutine(LoadPuzzleLevel());
+    }
+
+    IEnumerator LoadPuzzleLevel()
+    {
+        yield return new WaitForSeconds(3);
+        SceneManager.LoadScene("PuzzleGame");
     }
 
     void SayHowDoYouKnow()
     {
+        player.useCookie();
+        gaveCookie = true;
         audioSource.clip = howDoYouKnow;
         audioSource.Play();
     }
