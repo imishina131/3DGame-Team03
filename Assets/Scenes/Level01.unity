@@ -10896,6 +10896,7 @@ MonoBehaviour:
   instructions: {fileID: 0}
   bulletsInstructions: {fileID: 0}
   cage: {fileID: 0}
+  audioSource: {fileID: 0}
   creepyMessage: {fileID: 8300000, guid: 5801edccaef22744e91cbead5556e092, type: 3}
   doorLocked: {fileID: 8300000, guid: 18d38434827b04549a832d32f3a3b1db, type: 3}
   faceAnotherWay: {fileID: 8300000, guid: 2976c6076e576b9458d06d02ee49ced6, type: 3}
@@ -10905,6 +10906,8 @@ MonoBehaviour:
   button: {fileID: 1303760126}
   vendor: {fileID: 0}
   doll: {fileID: 0}
+  ghostGirl: {fileID: 0}
+  fourShapesText: {fileID: 0}
   doorOpen: {fileID: 8300000, guid: e19e0973ec6a4f44d847c3e9035f0d85, type: 3}
   buttonSound: {fileID: 8300000, guid: 84796ed2246e1b04cbddcf594ad341e1, type: 3}
   keyPickupSound: {fileID: 8300000, guid: f5d328268843343ed99e227840d80394, type: 3}
@@ -10914,11 +10917,20 @@ MonoBehaviour:
   takeCookie: {fileID: 0}
   getMoving: {fileID: 0}
   noCookieNoChat: {fileID: 0}
+  aKnife: {fileID: 0}
   fireballOrigin: {fileID: 0}
   fireball: {fileID: 0}
   gun: {fileID: 0}
   playerStats: {fileID: 0}
   playerObject: {fileID: 0}
+  boxAnimator: {fileID: 0}
+  knife: {fileID: 0}
+  fireballspeed: 0
+  animator: {fileID: 0}
+  collider: {fileID: 0}
+  cookiePanel: {fileID: 0}
+  boss: {fileID: 0}
+  bossHealthBar: {fileID: 0}
 --- !u!114 &154216041
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10943,6 +10955,7 @@ MonoBehaviour:
   damageVfx: {fileID: 361416920}
   audioSource: {fileID: 154216042}
   damageSound: {fileID: 8300000, guid: 6843e202fa8514372ba08e6a751e3ea8, type: 3}
+  keyPickup: {fileID: 0}
 --- !u!82 &154216042
 AudioSource:
   m_ObjectHideFlags: 0
