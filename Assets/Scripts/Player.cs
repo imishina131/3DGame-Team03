@@ -28,6 +28,8 @@ public class Player : MonoBehaviour
     public Image damageVfx; 
     public AudioSource audioSource;  
     public AudioClip damageSound; 
+    public AudioClip keyPickup;
+    bool dodge;
 
 
 
@@ -36,6 +38,17 @@ public class Player : MonoBehaviour
     {
         currentScene = SceneManager.GetActiveScene();
         damageVfx.color = new Color(1f, 1f, 1f, 0f);
+
+        if(TaskCompleted.riddleCompleted == true)
+        {
+            GetKey();
+            audioSource.PlayOneShot(keyPickup);
+        }
+
+        if(currentScene.name == "FloorUnderVan")
+        {
+            bullets = 0;
+        }
     }
 
     // Update is called once per frame
@@ -53,6 +66,19 @@ public class Player : MonoBehaviour
         if(numberOfFirePotions > 0)
         {
             hasPotions = true;
+        }
+        else
+        {
+            hasPotions = false;
+        }
+
+        if(keys > 0)
+        {
+            PlayerInteractions.hasKey = true;
+        }
+        else 
+        {
+            PlayerInteractions.hasKey = false;
         }
         bulletsText.text = bullets + "/5";
         keysText.text = keys + "/1";
@@ -84,6 +110,7 @@ public class Player : MonoBehaviour
 
         if(numberOfTargets <= 0)
         {
+            TaskCompleted.rangeCompleted = true;
             if(numberOfFirePotions == 0)
             {
                 numberOfFirePotions += 4;
@@ -139,9 +166,16 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        health = health - damage;
-        Debug.Log("Health: " + health);
-        StartCoroutine(FlashDamageEffect());
+        if(dodge == false)
+        {
+            health = health - damage;
+            Debug.Log("Health: " + health);
+            StartCoroutine(FlashDamageEffect());
+        }
+        else
+        {
+            return;
+        }
     }
 
     private IEnumerator FlashDamageEffect()
@@ -168,20 +202,23 @@ public class Player : MonoBehaviour
     {
         numberOfFirePotions -= 1;
 
-        if(numberOfFirePotions == 0)
-        {
-            hasPotions = false;
-        }
     }
 
     public void useCookie()
     {
-        cookies = cookies - 1;
+        cookies = 0;
 
-        if(cookies == 0)
-        {
-            hasCookies = false;
-        }
+    }
+
+    public void Roll()
+    {
+        dodge = true;
+        Invoke("Standup", 2.0f);
+    }
+
+    void Standup()
+    {
+        dodge = false;
     }
 
 }

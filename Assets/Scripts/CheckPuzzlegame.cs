@@ -32,6 +32,7 @@ public class CheckPuzzlegame : MonoBehaviour
     {
         if(slot01.rightSlot == true && slot02.rightSlot == true && slot03.rightSlot == true && slot04.rightSlot == true)
         {
+            TaskCompleted.riddleCompleted = true;
             SceneManager.LoadScene("Level02");
         }
         else

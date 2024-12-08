@@ -3,7 +3,16 @@ guid: 91d3265de9a7b704fa42a136d3f63824
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - bulletsText: {instanceID: 0}
+  - keysText: {instanceID: 0}
+  - cookiesText: {instanceID: 0}
+  - firePotionsText: {instanceID: 0}
+  - healthBar: {instanceID: 0}
+  - damageVfx: {instanceID: 0}
+  - audioSource: {instanceID: 0}
+  - damageSound: {instanceID: 0}
+  - keyPickup: {fileID: 8300000, guid: f5d328268843343ed99e227840d80394, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

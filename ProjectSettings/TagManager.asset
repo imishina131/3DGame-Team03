@@ -36,6 +36,9 @@ TagManager:
   - GhostGirl
   - CircleShape
   - TriangleShape
+  - Boss
+  - KnifeObject
+  - BossArea
   layers:
   - Default
   - TransparentFX

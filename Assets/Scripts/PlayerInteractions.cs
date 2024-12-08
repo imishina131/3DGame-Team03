@@ -11,7 +11,7 @@ public class PlayerInteractions : MonoBehaviour
     public GameObject FBanner;
     bool inKeyArea;
     public GameObject key;
-    bool hasKey;
+    public static bool hasKey;
     bool inDoorArea;
     public GameObject door;
     public KnifeClownBehavior knifeClown;
@@ -35,7 +35,7 @@ public class PlayerInteractions : MonoBehaviour
     bool inSquareArea;
     public GameObject cage;
 
-    AudioSource audioSource;
+    public AudioSource audioSource;
     public AudioClip creepyMessage;
     public AudioClip doorLocked;
     public AudioClip faceAnotherWay;
@@ -63,6 +63,7 @@ public class PlayerInteractions : MonoBehaviour
     public AudioClip takeCookie;
     public AudioClip getMoving;
     public AudioClip noCookieNoChat;
+    public AudioClip aKnife;
 
     
     public Transform fireballOrigin;
@@ -85,13 +86,46 @@ public class PlayerInteractions : MonoBehaviour
     bool hasX;
     bool hasSquare;
     bool gaveCookie;
+    bool hasKnife;
+    bool inBossArea;
+    bool bossAttackArea;
+    public static bool startBoss;
+
+    public Animator boxAnimator;
+
+    public GameObject knife;
 
     public int fireballspeed;
+
+    public Animator animator;
+
+    public Collider collider;
+
+    public GameObject cookiePanel;
+
+    public BossHealth boss;
+
+    public GameObject bossHealthBar;
+
+    bool delay;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        if(TaskCompleted.riddleCompleted == true)
+        {
+            hasKnife = true;
+            audioSource.clip = aKnife;
+            audioSource.Play();
+            StartCoroutine(Disable());
+        }
+
+        if(TaskCompleted.rangeCompleted == true)
+        {
+            cookiePanel.SetActive(true);
+            StartCoroutine(TakeOffCookiePanel());
+        }
         Debug.Log("visit: " + numberOfVisits);
         scene = SceneManager.GetActiveScene();
         rb = GetComponent<Rigidbody>();
@@ -107,6 +141,7 @@ public class PlayerInteractions : MonoBehaviour
         }
         else if(scene.name == "Level02")
         {
+            knife.SetActive(false);
             Invoke("HideSpeech", 35f);
             vendorAudio = vendor.GetComponent<AudioSource>();
             dollAudio = doll.GetComponent<AudioSource>();
@@ -124,6 +159,19 @@ public class PlayerInteractions : MonoBehaviour
     {
         freddySpeech.SetActive(false);
         finishedSpeech = true;
+    }
+
+    IEnumerator TakeOffCookiePanel()
+    {
+        yield return new WaitForSeconds(5);
+        cookiePanel.SetActive(false);
+        TaskCompleted.rangeCompleted = false;
+    }
+
+    IEnumerator Disable()
+    {
+        yield return new WaitForSeconds(2);
+        TaskCompleted.riddleCompleted = false;
     }
 
     // Update is called once per frame
@@ -165,6 +213,25 @@ public class PlayerInteractions : MonoBehaviour
                 fireballClone.GetComponent<Rigidbody>().AddForce(direction * fireballspeed, ForceMode.Impulse);
                 player.usePotion();
             }
+
+            if(scene.name == "Level02" && hasKnife && delay == false)
+            {
+                animator.SetTrigger("stab");
+                knife.SetActive(true);
+                Invoke("TakeAwayKnife", 2.5f);
+                if(bossAttackArea == true)
+                {
+                    boss.TakeDamage();
+                }
+                delay = true;
+                StartCoroutine(TakeOffDelay());
+            }
+        }
+
+        if(Input.GetMouseButtonDown(1) && hasKnife)
+        {
+            animator.SetTrigger("roll");
+            player.Roll();
         }
 
         if(Input.GetKeyDown(KeyCode.F))
@@ -239,18 +306,30 @@ public class PlayerInteractions : MonoBehaviour
                 hasTriangle = true;
                 Destroy(GameObject.FindGameObjectWithTag("CircleShape"));
                 hasCircle = true;
+                FBanner.SetActive(false);
             }
 
             if(inXArea == true)
             {
                 Destroy(GameObject.FindGameObjectWithTag("XShape"));
                 hasX = true;
+                FBanner.SetActive(false);
             }
 
             if(inSquareArea == true)
             {
                 Destroy(GameObject.FindGameObjectWithTag("SquareShape"));
                 hasSquare = true;
+                FBanner.SetActive(false);
+            }
+
+            if(inBossArea == true)
+            {
+                collider.isTrigger = true;
+                boxAnimator.SetTrigger("open");
+                startBoss = true;
+                FBanner.SetActive(false);
+                bossHealthBar.SetActive(true);
             }
         }
 
@@ -261,8 +340,20 @@ public class PlayerInteractions : MonoBehaviour
             audioSource.Play();
         }
 
+
         Debug.Log(hasbullets);
 
+    }
+
+    IEnumerator TakeOffDelay()
+    {
+        yield return new WaitForSeconds(4);
+        delay = false;
+    }
+
+    void TakeAwayKnife()
+    {
+        knife.SetActive(false);
     }
 
     public void LeaveMessage()
@@ -289,6 +380,11 @@ public class PlayerInteractions : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        if(other.gameObject.CompareTag("BossArea") && hasKey == true)
+        {
+            FBanner.SetActive(true);
+            inBossArea = true;
+        }
         if(other.gameObject.CompareTag("Trampoline"))
         {
             rb.AddForce(new Vector3(0.0f, 300.0f, 0.0f));
@@ -301,6 +397,11 @@ public class PlayerInteractions : MonoBehaviour
                 player.GainHealth();
                 Destroy(other.gameObject);
             }
+        }
+
+        if(other.gameObject.CompareTag("Boss"))
+        {
+            bossAttackArea = true;
         }
 
         if(other.gameObject.CompareTag("KeyArea") && hasKey == false)
@@ -447,6 +548,12 @@ public class PlayerInteractions : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
+        if(other.gameObject.CompareTag("BossArea") && hasKey == true)
+        {
+            FBanner.SetActive(false);
+            inBossArea = false;
+        }
+
         if(other.gameObject.CompareTag("KeyArea"))
         {
             FBanner.SetActive(false);
@@ -457,6 +564,11 @@ public class PlayerInteractions : MonoBehaviour
         {
             FBanner.SetActive(false);
             inDoorArea = false;
+        }
+
+        if(other.gameObject.CompareTag("Boss"))
+        {
+            bossAttackArea = false;
         }
 
         if(other.gameObject.CompareTag("ButtonArea"))
@@ -496,20 +608,16 @@ public class PlayerInteractions : MonoBehaviour
 
         if(other.gameObject.CompareTag("SquareShape"))
         {
-            if(player.hasPotions == true)
-            {
-                FBanner.SetActive(false);
-                inSquareArea = false;
-            }
+            FBanner.SetActive(false);
+            inSquareArea = false;
         }
 
         if(other.gameObject.CompareTag("XShape"))
         {
-            if(player.hasPotions == true)
-            {
-                FBanner.SetActive(false);
-                inXArea = false;
-            }
+
+            FBanner.SetActive(false);
+            inXArea = false;
+
         }
     }
 
