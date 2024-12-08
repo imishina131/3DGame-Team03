@@ -176,7 +176,7 @@ public class Player : MonoBehaviour
 
     public void useCookie()
     {
-        cookies -= 1;
+        cookies = cookies - 1;
 
         if(cookies == 0)
         {
