@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -29,11 +30,18 @@ public class PlayerMovement : MonoBehaviour
 
     float initialVelocity = 600f;
 
+    public AudioSource runningAudio;
+    public AudioSource walkingAudio;
+
+
+    Scene scene;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
 
+        scene = SceneManager.GetActiveScene();
         readyToJump = true;
     }
 
@@ -65,17 +73,27 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             animator.SetBool("isWalking", false);
+            walkingAudio.Stop();
+        }
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D))
+        {
+            walkingAudio.Play();
         }
 
         if (Input.GetKeyDown(KeyCode.LeftShift) && crouching == false)
         {
             moveSpeed = moveSpeed * 2;
             animator.SetBool("isSprinting", true);
+            animator.SetBool("isWalking", true);
+            runningAudio.Play();
+            walkingAudio.Stop();
         }
         else if(Input.GetKeyUp(KeyCode.LeftShift) && crouching == false)
         {
             moveSpeed = moveSpeed / 2;
             animator.SetBool("isSprinting", false);
+            runningAudio.Stop();
+            walkingAudio.Play();
         }
 
         if (Input.GetKey(KeyCode.Space) && readyToJump && grounded)
@@ -84,6 +102,8 @@ public class PlayerMovement : MonoBehaviour
             Jump();
             Debug.Log("jumping");
             Invoke(nameof(ResetJump), jumpCooldown);
+            runningAudio.Stop();
+            walkingAudio.Stop();
         }
 
         if(Input.GetKeyDown(KeyCode.LeftControl) && crouching == false)
