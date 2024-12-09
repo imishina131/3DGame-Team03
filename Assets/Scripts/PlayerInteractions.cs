@@ -89,6 +89,7 @@ public class PlayerInteractions : MonoBehaviour
     bool hasKnife;
     bool inBossArea;
     bool bossAttackArea;
+    public bool dollClose;
     public static bool startBoss;
 
     public Animator boxAnimator;
@@ -206,9 +207,10 @@ public class PlayerInteractions : MonoBehaviour
 
         if(Input.GetMouseButtonDown(0))
         {
-            if(scene.name == "Level02" && player.hasPotions == true)
+            if(scene.name == "Level02" && player.hasPotions == true && dollClose == true)
             {
                 Vector3 direction = (new Vector3(ghostGirl.transform.position.x, ghostGirl.transform.position.y + 8, ghostGirl.transform.position.z) - (fireballOrigin.transform.position));
+                animator.SetTrigger("throw");
                 fireballClone = Instantiate(fireball, fireballOrigin.position, Quaternion.identity);
                 fireballClone.GetComponent<Rigidbody>().AddForce(direction * fireballspeed, ForceMode.Impulse);
                 player.usePotion();
@@ -216,8 +218,10 @@ public class PlayerInteractions : MonoBehaviour
 
             if(scene.name == "Level02" && hasKnife && delay == false)
             {
+                playerStats.moveSpeed = 0;
                 animator.SetTrigger("stab");
                 knife.SetActive(true);
+                Invoke("SetMoveSpeed", 2.0f);
                 Invoke("TakeAwayKnife", 2.5f);
                 if(bossAttackArea == true)
                 {
@@ -349,6 +353,11 @@ public class PlayerInteractions : MonoBehaviour
     {
         yield return new WaitForSeconds(4);
         delay = false;
+    }
+
+    void SetMoveSpeed()
+    {
+        playerStats.moveSpeed = 7;
     }
 
     void TakeAwayKnife()

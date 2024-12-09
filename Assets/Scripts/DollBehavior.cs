@@ -14,6 +14,8 @@ public class DollBehavior : MonoBehaviour
     public GameObject playerObject;
     public Player player;
     public GameObject potionsHint;
+    public PlayerInteractions playerInteractions;
+
 
     public GameObject jumpscare;
     // Start is called before the first frame update
@@ -33,11 +35,13 @@ public class DollBehavior : MonoBehaviour
         {
             agent.SetDestination(playerObject.transform.position);
             potionsHint.SetActive(true);
+            playerInteractions.dollClose = true;
         }
         else if(distance > 40)
         {
             potionsHint.SetActive(false);
             agent.SetDestination(startPoint.position);
+            playerInteractions.dollClose = false;
         }
     }
 
