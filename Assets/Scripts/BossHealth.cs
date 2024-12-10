@@ -10,6 +10,8 @@ public class BossHealth : MonoBehaviour
     int health = 200;
     public Animator animator;
     public Slider healthBar;
+    public ParticleSystem hit;
+    public ParticleSystem smoke;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,10 +28,11 @@ public class BossHealth : MonoBehaviour
     public void TakeDamage()
     {
         health = health - 40;
-
+        hit.Play();
         if (health <= 0)
         {
             animator.SetTrigger("die");
+            smoke.Play();
             StartCoroutine("LoadEnd");
         }
     }
