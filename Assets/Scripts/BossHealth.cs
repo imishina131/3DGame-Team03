@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Video;
 
 public class BossHealth : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class BossHealth : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -26,7 +27,7 @@ public class BossHealth : MonoBehaviour
     {
         health = health - 40;
 
-        if(health <= 0)
+        if (health <= 0)
         {
             animator.SetTrigger("die");
             StartCoroutine("LoadEnd");
@@ -35,7 +36,7 @@ public class BossHealth : MonoBehaviour
 
     IEnumerator LoadEnd()
     {
-        yield return new WaitForSeconds(4);
-        SceneManager.LoadScene("Cinematic scene");
+        yield return new WaitForSeconds(2);
+        SceneManager.LoadScene("Cinematic 2");
     }
 }
