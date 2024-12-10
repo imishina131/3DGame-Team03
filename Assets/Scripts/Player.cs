@@ -33,6 +33,7 @@ public class Player : MonoBehaviour
 
 
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -96,11 +97,13 @@ public class Player : MonoBehaviour
             }
             else if(currentScene.name == "Level02")
             {
+                PlayerInteractions.posSaved = new Vector3 (PlayerInteractions.beginningPos.x, PlayerInteractions.beginningPos.y, PlayerInteractions.beginningPos.z);
                 SceneManager.LoadScene("Level02");
                 health = 100;
                 bullets = 0;
                 cookies = 0;
                 numberOfFirePotions = 0;
+                
             }
             else
             {

@@ -64,6 +64,7 @@ public class PlayerInteractions : MonoBehaviour
     public AudioClip getMoving;
     public AudioClip noCookieNoChat;
     public AudioClip aKnife;
+    public AudioSource collected;
 
     
     public Transform fireballOrigin;
@@ -80,6 +81,7 @@ public class PlayerInteractions : MonoBehaviour
 
     public GameObject playerObject;
     public static Vector3 posSaved;
+    public static Vector3 beginningPos;
 
     bool hasCircle;
     bool hasTriangle;
@@ -110,10 +112,10 @@ public class PlayerInteractions : MonoBehaviour
 
     bool delay;
 
-
     // Start is called before the first frame update
     void Start()
     {
+        transform.position = posSaved;
         if(TaskCompleted.riddleCompleted == true)
         {
             hasKnife = true;
@@ -130,7 +132,6 @@ public class PlayerInteractions : MonoBehaviour
         Debug.Log("visit: " + numberOfVisits);
         scene = SceneManager.GetActiveScene();
         rb = GetComponent<Rigidbody>();
-        transform.position = posSaved;
         if (scene.name == "Level02" && numberOfVisits > 0)
         {
             if(numberOfVisits > 0)
@@ -140,8 +141,9 @@ public class PlayerInteractions : MonoBehaviour
                 dollAudio = doll.GetComponent<AudioSource>();
             }
         }
-        else if(scene.name == "Level02")
+        else if(scene.name == "Level02" && numberOfVisits == 0)
         {
+            beginningPos = transform.position;
             knife.SetActive(false);
             Invoke("HideSpeech", 35f);
             vendorAudio = vendor.GetComponent<AudioSource>();
@@ -154,6 +156,8 @@ public class PlayerInteractions : MonoBehaviour
             buttonAudio = button.GetComponent<AudioSource>();
         }
         audioSource = GetComponent<AudioSource>();
+
+        Debug.Log("Begin: " + beginningPos);
     }
 
     void HideSpeech()
@@ -164,7 +168,7 @@ public class PlayerInteractions : MonoBehaviour
 
     IEnumerator TakeOffCookiePanel()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(9);
         cookiePanel.SetActive(false);
         TaskCompleted.rangeCompleted = false;
     }
@@ -216,7 +220,7 @@ public class PlayerInteractions : MonoBehaviour
                 player.usePotion();
             }
 
-            if(scene.name == "Level02" && hasKnife && delay == false)
+            if(scene.name == "Level02" && hasKnife)
             {
                 playerStats.moveSpeed = 0;
                 animator.SetTrigger("stab");
@@ -227,8 +231,6 @@ public class PlayerInteractions : MonoBehaviour
                 {
                     boss.TakeDamage();
                 }
-                delay = true;
-                StartCoroutine(TakeOffDelay());
             }
         }
 
@@ -292,16 +294,14 @@ public class PlayerInteractions : MonoBehaviour
 
             if(inRangeArea == true  && hasbullets == true)
             {
-                StartCoroutine(SavePosition("ShootingRange"));
+                SceneManager.LoadScene("ShootingRange");
             }
 
             if(inIceCreamArea == true && playerStats.crouching == true)
             {
                 hasbullets = true;
                 numberOfVisits += 1;
-                StartCoroutine(SavePosition("FloorUnderVan"));
-                //posSaved = playerObject.transform.position;
-                //SceneManager.LoadScene("FloorUnderVan");
+                SceneManager.LoadScene("FloorUnderVan");
             }
 
             if(inLastShapesArea == true)
@@ -349,6 +349,7 @@ public class PlayerInteractions : MonoBehaviour
 
     }
 
+
     IEnumerator TakeOffDelay()
     {
         yield return new WaitForSeconds(4);
@@ -372,13 +373,6 @@ public class PlayerInteractions : MonoBehaviour
         audioSource.Play();
     }
 
-    IEnumerator SavePosition(string scene)
-    {
-        posSaved = playerObject.transform.position;
-        yield return new WaitForSeconds(2);
-        SceneManager.LoadScene(scene);
-
-    }
 
     void PlayHint()
     {
@@ -403,6 +397,7 @@ public class PlayerInteractions : MonoBehaviour
         {
             if (Player.health < 100)
             {
+                collected.Play();
                 player.GainHealth();
                 Destroy(other.gameObject);
             }
@@ -464,6 +459,7 @@ public class PlayerInteractions : MonoBehaviour
 
         if(other.gameObject.CompareTag("RangeArea"))
         {
+            posSaved = playerObject.transform.position;
             if(finishedSpeech)
             {
                 inRangeArea = true;
@@ -474,6 +470,7 @@ public class PlayerInteractions : MonoBehaviour
         if(other.gameObject.CompareTag("IceCreamArea"))
         {
             inIceCreamArea = true;
+            posSaved = playerObject.transform.position;
             if(finishedSpeech && numberOfVisits < 1)
             {
                 vendorAudio.clip = vendorMessage;
@@ -495,8 +492,13 @@ public class PlayerInteractions : MonoBehaviour
                 }
                 else if(hasCircle == true && hasSquare == true && hasTriangle == true && hasX == true)
                 {
+                    posSaved = playerObject.transform.position;
                     Invoke("DropCage", 2.0f);
                     StartCoroutine(LoadPuzzleLevel());
+                }
+                else if(hasKnife == true)
+                {
+                    return;
                 }
                 else if(player.hasCookies == false && gaveCookie == false)
                 {

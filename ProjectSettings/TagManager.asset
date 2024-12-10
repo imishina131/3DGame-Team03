@@ -39,6 +39,8 @@ TagManager:
   - Boss
   - KnifeObject
   - BossArea
+  - PlayerDanger
+  - BossAttackArea
   layers:
   - Default
   - TransparentFX

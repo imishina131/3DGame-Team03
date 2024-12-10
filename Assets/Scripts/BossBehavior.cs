@@ -11,6 +11,7 @@ public class BossBehavior : MonoBehaviour
     public GameObject playerObject;
     public Player player;
     public GameObject rollHint;
+    public Transform initialPosition;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,38 +21,52 @@ public class BossBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        float distance = Vector3.Distance(playerObject.transform.position, transform.position);
+        Debug.Log("distance boss: " + distance);
         if(PlayerInteractions.startBoss == true)
         {
-            animator.SetTrigger("start");
-            agent.SetDestination(playerObject.transform.position);
             rollHint.SetActive(true);
+
+            if(distance <= 30)
+            {
+                agent.SetDestination(playerObject.transform.position);
+                animator.SetBool("far", true);
+            }
+            else if (distance > 30)
+            {
+                agent.SetDestination(initialPosition.position);
+                animator.SetBool("far", true);
+            }
         }
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "AttackArea")
+        if(other.gameObject.CompareTag("BossAttackArea"))
         {
             inAttackArea = true;
-            onBreak = true;
+            animator.SetBool("far", false);
             StartCoroutine(Attack());
         }
     }
 
     void OnTriggerExit(Collider other)
     {
-        if(other.gameObject.tag == "AttackArea")
+        if(other.gameObject.CompareTag("BossAttackArea"))
         {
             inAttackArea = false;
+            animator.SetBool("close", false);
         }
     }
 
     IEnumerator Attack()
     {
-        animator.SetTrigger("attack");
-        player.TakeDamage(25);
-        yield return new WaitForSeconds(4);
-        onBreak = false;
-
+        while(inAttackArea)
+        {
+            animator.SetTrigger("attack");
+            player.TakeDamage(25);
+            yield return new WaitForSeconds(4f);
+        }
     }
+
 }
