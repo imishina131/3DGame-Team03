@@ -12,6 +12,8 @@ public class BossHealth : MonoBehaviour
     public Slider healthBar;
     public ParticleSystem hit;
     public ParticleSystem smoke;
+
+    public BossBehavior boss;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,6 +35,7 @@ public class BossHealth : MonoBehaviour
         {
             animator.SetTrigger("die");
             smoke.Play();
+            boss.gameOver = true;
             StartCoroutine("LoadEnd");
         }
     }

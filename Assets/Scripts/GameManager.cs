@@ -10,11 +10,13 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
         music = GameObject.FindGameObjectWithTag("GameMusic");
         if(music.gameObject.TryGetComponent<DontDestroy>(out DontDestroy component))
         {
             index = component.index;
         }
+        
         StartCoroutine("LoadNextLevel");
     }
 

@@ -12,6 +12,8 @@ public class BossBehavior : MonoBehaviour
     public Player player;
     public GameObject rollHint;
     public Transform initialPosition;
+
+    public bool gameOver;
     // Start is called before the first frame update
     void Start()
     {
@@ -61,7 +63,7 @@ public class BossBehavior : MonoBehaviour
 
     IEnumerator Attack()
     {
-        while(inAttackArea)
+        while(inAttackArea && !gameOver)
         {
             animator.SetTrigger("attack");
             player.TakeDamage(25);

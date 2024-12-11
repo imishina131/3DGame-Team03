@@ -23,6 +23,7 @@ public class RayCastScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Cursor.lockState = CursorLockMode.Locked;
         Vector3 mousePos = Input.mousePosition;
         mousePos.z = 100f;
         mousePos = camera.ScreenToWorldPoint(mousePos);

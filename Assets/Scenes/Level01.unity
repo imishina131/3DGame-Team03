@@ -123,6 +123,55 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &12284533
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 12284535}
+  - component: {fileID: 12284534}
+  m_Layer: 0
+  m_Name: MusicChanger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &12284534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 12284533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d8e52ac6865ce54193a81f7e9576e69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audio: {fileID: 0}
+  level01Music: {fileID: 8300000, guid: c51313e2b4daa314ba6164f7d7342b37, type: 3}
+  level02Music: {fileID: 8300000, guid: 59b36d275a302f043adbfa7d4a02563a, type: 3}
+  loadingMusic: {fileID: 8300000, guid: 2bcf09e277a03e145914a78c100e3e04, type: 3}
+  menuMusic: {fileID: 8300000, guid: c827c284edd79104d9ebfe43c6f3d7ad, type: 3}
+--- !u!4 &12284535
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 12284533}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 840.001, y: 259.33276, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &21320652 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -2210555472734806462, guid: 5f9be101ca6dfe64e8ec6080fca051b1, type: 3}
@@ -13888,7 +13937,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 419996717}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.11137518, y: 0.000000017729198, z: -4.886735e-10, w: 0.99377847}
+  m_LocalRotation: {x: 0.11137519, y: -0.000000017729198, z: 4.886737e-10, w: 0.99377847}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -20568,9 +20617,9 @@ RectTransform:
   - {fileID: 756837272}
   m_Father: {fileID: 841438914}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -864, y: -506}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 100, y: 65}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &603109738
@@ -45909,7 +45958,7 @@ MonoBehaviour:
     m_DecelTime: 0.1
     m_InputAxisName: Mouse Y
     m_InputAxisValue: 0
-    m_InvertInput: 0
+    m_InvertInput: 1
     m_MinValue: 0
     m_MaxValue: 1
     m_Wrap: 0
@@ -66470,3 +66519,4 @@ SceneRoots:
   - {fileID: 891470475}
   - {fileID: 1826028848}
   - {fileID: 936152424}
+  - {fileID: 12284535}

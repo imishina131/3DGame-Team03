@@ -15,9 +15,6 @@ EditorBuildSettings:
     path: Assets/Scenes/MenuScenes/AudioMenu.unity
     guid: e0e255b3b451546b196b59c6391daaef
   - enabled: 1
-    path: Assets/Scenes/MenuScenes/VideoMenu.unity
-    guid: 959502981a3374118bd3ae7861f56d92
-  - enabled: 1
     path: Assets/Scenes/MenuScenes/HelpMenu.unity
     guid: fd18db01975f85b44a0591c43c18836f
   - enabled: 1
