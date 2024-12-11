@@ -42,6 +42,9 @@ public class CheckPuzzlegame : MonoBehaviour
             if(lives <= 0)
             {
                 SceneManager.LoadScene("LoseScene");
+                PlayerInteractions.numberOfVisits = 0;
+                Player.numberOfFirePotions = 0;
+                Player.cookies = 0;
             }
         }
     }

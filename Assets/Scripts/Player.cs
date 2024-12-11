@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
 {
     public static float health = 100f;
     static int bullets = 0;
-    static int keys = 0;
+    public static int keys = 0;
     static int healthMax;
     public TMP_Text bulletsText;
     public TMP_Text keysText;
@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
     public int nonStaticBullets;
     Scene currentScene;
     int numberOfTargets = 3;
-    static int numberOfFirePotions = 0;
+    public static int numberOfFirePotions = 0;
     public static int cookies = 0;
     public bool hasCookies;
     public bool hasPotions;
