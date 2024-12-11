@@ -213,6 +213,10 @@ public class Player : MonoBehaviour
 
     IEnumerator PlayerDeath()
     {
+        if(currentScene.name == "FloorUnderVan")
+        {
+            SceneManager.LoadScene("Level02");
+        }
         explosionEffect.Play();
         yield return new WaitForSeconds(1);
         if (currentScene.name == "Level01")
