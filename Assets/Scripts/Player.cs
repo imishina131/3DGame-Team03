@@ -30,6 +30,7 @@ public class Player : MonoBehaviour
     public AudioClip damageSound; 
     public AudioClip keyPickup;
     bool dodge;
+    public ParticleSystem explosionEffect;
 
 
 
@@ -94,27 +95,7 @@ public class Player : MonoBehaviour
 
         if (health <= 0)
         {
-            if(currentScene.name == "Level01")
-            {
-                SceneManager.LoadScene("Level01");
-                healthMax = 100;
-                health = healthMax;
-                keys = 0;
-            }
-            else if(currentScene.name == "Level02")
-            {
-                PlayerInteractions.posSaved = new Vector3 (PlayerInteractions.beginningPos.x, PlayerInteractions.beginningPos.y, PlayerInteractions.beginningPos.z);
-                SceneManager.LoadScene("Level02");
-                health = 100;
-                bullets = 0;
-                cookies = 0;
-                numberOfFirePotions = 0;
-                
-            }
-            else
-            {
-                SceneManager.LoadScene("LossScene");
-            }
+            StartCoroutine(PlayerDeath());
         }
 
         if(numberOfTargets <= 0)
@@ -230,4 +211,30 @@ public class Player : MonoBehaviour
         dodge = false;
     }
 
+    IEnumerator PlayerDeath()
+    {
+        explosionEffect.Play();
+        yield return new WaitForSeconds(1);
+        if (currentScene.name == "Level01")
+        {
+            SceneManager.LoadScene("Level01");
+            healthMax = 100;
+            health = healthMax;
+            keys = 0;
+        }
+        else if (currentScene.name == "Level02")
+        {
+            PlayerInteractions.posSaved = new Vector3(PlayerInteractions.beginningPos.x, PlayerInteractions.beginningPos.y, PlayerInteractions.beginningPos.z);
+            SceneManager.LoadScene("Level02");
+            health = 100;
+            bullets = 0;
+            cookies = 0;
+            numberOfFirePotions = 0;
+
+        }
+        else
+        {
+            SceneManager.LoadScene("LossScene");
+        }
+    }
 }
