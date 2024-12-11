@@ -41,7 +41,7 @@ public class CheckPuzzlegame : MonoBehaviour
 
             if(lives <= 0)
             {
-                SceneManager.LoadScene("LossScene");
+                SceneManager.LoadScene("LoseScene");
             }
         }
     }
