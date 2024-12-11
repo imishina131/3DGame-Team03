@@ -153,9 +153,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audio: {fileID: 0}
-  audioSource: {fileID: 0}
-  activeScene:
-    m_Handle: 0
   level01Music: {fileID: 8300000, guid: c51313e2b4daa314ba6164f7d7342b37, type: 3}
   level02Music: {fileID: 8300000, guid: 59b36d275a302f043adbfa7d4a02563a, type: 3}
   loadingMusic: {fileID: 8300000, guid: 2bcf09e277a03e145914a78c100e3e04, type: 3}
@@ -10920,25 +10917,16 @@ MonoBehaviour:
   animator: {fileID: 1472811807}
   moveSpeed: 7
   orientation: {fileID: 1200987539}
-  horizontalInput: 0
-  verticalInput: 0
-  moveDirection: {x: 0, y: 0, z: 0}
-  rb: {fileID: 0}
-  jumpForce: 6
   jumpCooldown: 1
   airMultiplier: 0.4
-  readyToJump: 0
   groundDrag: 5
   playerHeight: 4
   whatIsGround:
+    serializedVersion: 2
     m_Bits: 1024
-  grounded: 0
   crouching: 0
-  initialVelocity: 600
   runningAudio: {fileID: 1866438246}
   walkingAudio: {fileID: 1354600730}
-  scene:
-    m_Handle: 0
 --- !u!114 &154216040
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10951,29 +10939,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc049a55a13ca93408dc985fe52815c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 0}
   FBanner: {fileID: 1034402903}
-  inKeyArea: 0
   key: {fileID: 791127008}
-  inDoorArea: 0
   door: {fileID: 529110162}
   knifeClown: {fileID: 891470479}
-  inButtonArea: 0
-  inNoteArea: 0
-  noteDisplayed: 0
   noteDisplay: {fileID: 857675781}
   player: {fileID: 154216041}
-  inRangeArea: 0
-  inFreddyArea: 0
   freddySpeech: {fileID: 0}
   letDollFinish: {fileID: 0}
   instructions: {fileID: 0}
   bulletsInstructions: {fileID: 0}
-  inIceCreamArea: 0
-  dollDead: 0
-  inLastShapesArea: 0
-  inXArea: 0
-  inSquareArea: 0
   cage: {fileID: 0}
   audioSource: {fileID: 0}
   creepyMessage: {fileID: 8300000, guid: 5801edccaef22744e91cbead5556e092, type: 3}
@@ -10987,12 +10962,6 @@ MonoBehaviour:
   doll: {fileID: 0}
   ghostGirl: {fileID: 0}
   fourShapesText: {fileID: 0}
-  fireballClone: {fileID: 0}
-  doorAudio: {fileID: 0}
-  buttonAudio: {fileID: 0}
-  keyAudio: {fileID: 0}
-  vendorAudio: {fileID: 0}
-  dollAudio: {fileID: 0}
   doorOpen: {fileID: 8300000, guid: e19e0973ec6a4f44d847c3e9035f0d85, type: 3}
   buttonSound: {fileID: 8300000, guid: 84796ed2246e1b04cbddcf594ad341e1, type: 3}
   keyPickupSound: {fileID: 8300000, guid: f5d328268843343ed99e227840d80394, type: 3}
@@ -11007,19 +10976,8 @@ MonoBehaviour:
   fireballOrigin: {fileID: 0}
   fireball: {fileID: 0}
   gun: {fileID: 0}
-  scene:
-    m_Handle: 0
-  gunPos: {x: 0, y: 0, z: 0}
   playerStats: {fileID: 0}
   playerObject: {fileID: 0}
-  hasCircle: 0
-  hasTriangle: 0
-  hasX: 0
-  hasSquare: 0
-  gaveCookie: 0
-  hasKnife: 0
-  inBossArea: 0
-  bossAttackArea: 0
   dollClose: 0
   boxAnimator: {fileID: 0}
   knife: {fileID: 0}
@@ -11029,7 +10987,6 @@ MonoBehaviour:
   cookiePanel: {fileID: 0}
   boss: {fileID: 0}
   bossHealthBar: {fileID: 0}
-  delay: 0
 --- !u!114 &154216041
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11048,9 +11005,6 @@ MonoBehaviour:
   firePotionsText: {fileID: 989316666}
   healthBar: {fileID: 1887155857}
   nonStaticBullets: 0
-  currentScene:
-    m_Handle: 0
-  numberOfTargets: 3
   hasCookies: 0
   hasPotions: 0
   ghostGirlDead: 0
@@ -11058,7 +11012,6 @@ MonoBehaviour:
   audioSource: {fileID: 154216042}
   damageSound: {fileID: 8300000, guid: 6843e202fa8514372ba08e6a751e3ea8, type: 3}
   keyPickup: {fileID: 0}
-  dodge: 0
 --- !u!82 &154216042
 AudioSource:
   m_ObjectHideFlags: 0
@@ -13984,7 +13937,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 419996717}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.11137519, y: -0.000000017729198, z: 4.886737e-10, w: 0.99377847}
+  m_LocalRotation: {x: 0.11137518, y: 0.000000017729198, z: -4.886735e-10, w: 0.99377847}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -19988,7 +19941,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.0496, y: 0}
+  m_AnchoredPosition: {x: -408, y: 178}
   m_SizeDelta: {x: 41.5093, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &538634394
@@ -31094,16 +31047,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   knife: {fileID: 1705528234099485366, guid: ec29d089c95dec54db236cd5329e837e, type: 3}
-  knifeClone: {fileID: 0}
-  firstKnife: {fileID: 0}
   knifePos: {fileID: 974942302}
   knifeEndPos: {fileID: 1653582629}
   firstKnifePos: {fileID: 1773248078}
-  speed: 1
-  shootingFirstDoor: 0
-  shootingSecondDoor: 0
   knifeTarget: {fileID: 1071048601}
-  audioSource: {fileID: 0}
   throwingKnives: {fileID: 8300000, guid: b491292958df70b42844393c57dca38f, type: 3}
 --- !u!64 &891470480
 MeshCollider:
@@ -32479,7 +32426,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -197}
+  m_AnchoredPosition: {x: 0, y: -13}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1034402905
@@ -32495,15 +32442,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: fb23d618674f342e7852fe2d675809c6, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -45746,14 +45693,14 @@ RectTransform:
   m_GameObject: {fileID: 1478369733}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.24972412, y: 0.24972412, z: 0.24972412}
+  m_LocalScale: {x: 0.7351828, y: 0.7351828, z: 0.7351828}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 857675782}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 160.5726, y: -100.638824}
+  m_AnchoredPosition: {x: 160.57, y: -100.638824}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1478369735
@@ -64859,8 +64806,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Press "F" to interact
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: ab5d80536ad3844c495f29afb2e52efe, type: 2}
+  m_sharedMaterial: {fileID: -3276220788607813611, guid: ab5d80536ad3844c495f29afb2e52efe, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
