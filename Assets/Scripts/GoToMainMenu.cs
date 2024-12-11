@@ -13,7 +13,7 @@ public class GoToMainMenu : MonoBehaviour
     IEnumerator LoadMainMenu()
     {
         yield return new WaitForSeconds(25);
-        SceneManager.LoadScene("Cinematic 2");
+        SceneManager.LoadScene("MainMenu");
     
     }
 }

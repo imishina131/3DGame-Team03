@@ -50,6 +50,12 @@ public class Player : MonoBehaviour
         {
             bullets = 0;
         }
+
+        if(currentScene.name == "Level01")
+        {
+            health = 100;
+            keys = 0;
+        }
     }
 
     // Update is called once per frame

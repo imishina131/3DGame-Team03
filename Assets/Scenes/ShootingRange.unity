@@ -2698,7 +2698,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.359
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -2803,7 +2803,7 @@ MonoBehaviour:
   hasCookies: 0
   hasPotions: 0
   ghostGirlDead: 0
-  damageVfx: {fileID: 0}
+  damageVfx: {fileID: 1835469272}
   audioSource: {fileID: 942564865}
   damageSound: {fileID: 8300000, guid: 6843e202fa8514372ba08e6a751e3ea8, type: 3}
   keyPickup: {fileID: 0}

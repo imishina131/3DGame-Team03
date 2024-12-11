@@ -69,7 +69,7 @@ public class PlayerInteractions : MonoBehaviour
     
     public Transform fireballOrigin;
     public GameObject fireball;
-    static int numberOfVisits = 0;
+    public static int numberOfVisits = 0;
 
     public GameObject gun;
 
@@ -115,7 +115,6 @@ public class PlayerInteractions : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        transform.position = posSaved;
         if(TaskCompleted.riddleCompleted == true)
         {
             hasKnife = true;
@@ -136,6 +135,7 @@ public class PlayerInteractions : MonoBehaviour
         {
             if(numberOfVisits > 0)
             {
+                transform.position = posSaved;
                 HideSpeech();
                 
                 dollAudio = doll.GetComponent<AudioSource>();

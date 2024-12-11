@@ -42,6 +42,7 @@ public class BossHealth : MonoBehaviour
 
     IEnumerator LoadEnd()
     {
+        PlayerInteractions.numberOfVisits = 0;
         yield return new WaitForSeconds(2);
         SceneManager.LoadScene("Cinematic 2");
     }
